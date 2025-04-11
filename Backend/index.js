@@ -2,15 +2,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const supportsRoutes = require('./routes/supportRoutes');
+const bannerRoute = require('./routes/bannerRoute');
 const client = require('./config/db');
 const cookieParser = require("cookie-parser");
+const { default: router } = require('./Controllers/UiControllar');
 const app = express();
 dotenv.config();
 app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
-
-
-
 
 
 client.connect().then(() => {
@@ -19,15 +20,18 @@ client.connect().then(() => {
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: ["http://localhost:5173", "http://localhost:3000"], // ✅ Allow both ports
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    credentials: true,
+    credentials: true, // ✅ Allow cookies/auth headers
+    
   })
 );
 app.use(express.json());
 
-app.use('/api/auth', userRoutes);
-
+app.use("/api", userRoutes);
+app.use('/api/products',productRoutes);
+app.use("/",supportsRoutes );
+app.use("/api/banners", bannerRoute);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });

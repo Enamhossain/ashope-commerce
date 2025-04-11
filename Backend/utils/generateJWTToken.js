@@ -1,16 +1,22 @@
-
 const jwt = require("jsonwebtoken");
 
-exports.generateJWTToken = (res, userId) => {
-  const token = jwt.sign({ id: userId }, process.env.Secret_KEY, {
-    expiresIn: "7d", // Token validity
-  });
+exports.generateJWTToken = (res, userId, userEmail, userRole) => {
+  if (!res?.cookie) {
+    throw new Error("Invalid response object");
+  }
+
+  // ✅ Include `email` in the token payload
+  const token = jwt.sign(
+    { id: userId, email: userEmail, role: userRole },
+    process.env.SECRET_KEY,
+    { expiresIn: "7d" }
+  );
 
   res.cookie("token", token, {
-    httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-    secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-    sameSite: "strict", // Prevent cross-site request forgery (CSRF)
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
   return token;
