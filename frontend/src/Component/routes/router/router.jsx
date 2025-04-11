@@ -42,7 +42,8 @@ import CustomerSupport from "../../../Pages/Customer-Support/CustomerSupport";
 import ContactUs from "../../../Pages/QuickLinks/AboutUs";
 import TermsCondition from "../../../Pages/QuickLinks/TermsCondition";
 import FAQ from "../../../Pages/QuickLinks/FAQ";
-import Checkout from "../../Cart/checkOut";
+import CheckOuts from "../../Cart/CheckOuts";
+
 
 // Define routes
 export const router = createBrowserRouter([
@@ -114,7 +115,7 @@ export const router = createBrowserRouter([
       },
        {
         path:"/checkout",
-        element:<Checkout/>
+        element:<CheckOuts/>
        },
      
       {

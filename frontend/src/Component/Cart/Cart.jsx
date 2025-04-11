@@ -3,8 +3,10 @@ import useCartStore from "../../store/cartStore";
 import { Container } from "@chakra-ui/react";
 import CartProducts from "./CartProducts";
 import { Link } from "react-router-dom";
-import { OrderSummary } from "./orderSummary";
+
+
 import CheckoutButton from "./CheckoutButton";
+import OrdersSummary from "./OrdersSummary";
 
 
 const Cart = () => {
@@ -46,9 +48,7 @@ const Cart = () => {
             {/* Note */}
 
             {/* Order Summary Section */}
-            <OrderSummary
-         
-            />
+            <OrdersSummary/>
             
     
           </div>
