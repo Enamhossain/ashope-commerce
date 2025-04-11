@@ -1,0 +1,160 @@
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 220px 50px 240px 70px; /* Adjusted for better spacing */
+  text-align: left;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.8s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Text and content optimizations */
+.left-content {
+  position: relative;
+  max-width: 600px;
+}
+
+.left-content h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: bold;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.left-content h2 {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Button Styling */
+button {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .hero-section {
+    padding: 180px 40px 200px 50px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 120px 30px 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 20px 140px;
+    background-size: contain;
+  }
+
+  .left-content {
+    max-width: 90%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    padding: 60px 15px 100px;
+  }
+
+  .left-content h1 {
+    font-size: 2rem;
+  }
+
+  .left-content h2 {
+    font-size: 1.2rem;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* @keyframes bg-carousel {
+  0% { background-image: url('/src/assets/banner\ img.jpg'); }
+  40% { background-image: url('https://i.ibb.co.com/5RW2KVG/cute-young-lady-trendy-bright-jacket-posing-female-model-straw-hat-having-fun.jpg'); }
+  60% { background-image: url('https://i.ibb.co.com/SDmYNQ94/Untitled-Website.png'); }
+  80% { background-image: url("https://i.ibb.co.com/ksySzY2z/bannerimg4.png"); }
+  100% { background-image: url("https://i.ibb.co.com/ksySzY2z/bannerimg4.png"); }
+} */
+
+
+.left-content {
+  position: relative;
+  text-align: left;
+  max-width: 600px; 
+}
+
+.left-content h1 {
+  font-size: 3.5em;
+  margin-bottom: 15px;
+  font-weight: bold;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.7));
+  line-height: 1.2;
+}
+
+.left-content h2 {
+  font-size: 1.8em;
+  margin-bottom: 25px;
+  color: rgba(255, 255, 255, 0.85); 
+}
+
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 40px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #078f78; 
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  background-color: #eb39fc; 
+  transform: scale(1.05); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+button:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.02);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.hero-section .left-content {
+  animation: fadeIn 2.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

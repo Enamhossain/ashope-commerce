@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Global Styles */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Use Poppins font globally */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f3a683, #786fa6, #63cdda); /* Add gradient */
+  background-size: 400% 400%; /* Optional for animated gradient */
+  animation: gradientBackground 30s ease infinite; /* Slower animation */
+}
+
+/* Animation for smooth gradient flow */
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Code styling */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Base Layer (Tailwind) */
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+
+/* Custom Utilities */
+@layer utilities {
+  /* Custom text-shadow utility */
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  .text-shadow-md {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  }
+  .text-shadow-lg {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Image handling to avoid overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

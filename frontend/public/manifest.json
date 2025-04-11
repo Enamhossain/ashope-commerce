@@ -1,0 +1,30 @@
+{
+  "short_name": "SquadPark",
+  "name": "SquadPark | Trendy Clothing & Beauty Essentials",
+  "icons": [
+    {
+      "src": "/logo.gif",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/gif"
+    },
+    {
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "description": "Discover the latest fashion trends at SquadPark. Clothing & Beauty for every style."
+}
