@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
         path: "/products/productdetails/:id", 
         element: <ProductDetailsCard />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/products/productdetails/${params?.id}`),
+          fetch(`https://ashope-commerce-backend.vercel.app/api/products/productdetails/${params?.id}`),
     
       },
       {
