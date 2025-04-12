@@ -8,6 +8,7 @@ const bannerRoute = require('./routes/bannerRoute');
 const client = require('./config/db');
 const cookieParser = require("cookie-parser");
 const { default: router } = require('./Controllers/UiControllar');
+const { apiKeyMiddleware } = require('./middlewares/apiKeyMiddleware');
 const app = express();
 dotenv.config();
 app.use(cookieParser());
@@ -29,7 +30,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api", userRoutes);
-app.use('/api/products',productRoutes);
+app.use('/api/products',apiKeyMiddleware, productRoutes);
 app.use("/",supportsRoutes );
 app.use("/api/banners", bannerRoute);
 app.get('/', (req, res) => {

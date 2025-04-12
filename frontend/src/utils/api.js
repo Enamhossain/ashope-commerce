@@ -4,6 +4,8 @@ const api = axios.create({
   baseURL:"https://ashope-backend.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
+    "x-api-key":  process.env.VITE_PUBLIC_API_KEY, // ✅ Secure this value in .env or via environment variable in production
+    
   },
   withCredentials: true,
 
