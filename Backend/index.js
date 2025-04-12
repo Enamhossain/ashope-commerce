@@ -20,7 +20,7 @@ client.connect().then(() => {
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "ashop-enamhossains-projects.vercel.app", "ashop.vercel.app"], // ✅ Allow both ports
+    origin: ["https://ashop.vercel.app/"], // ✅ Allow both ports
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     credentials: true, // ✅ Allow cookies/auth headers
     

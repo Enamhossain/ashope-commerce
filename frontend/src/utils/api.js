@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL:"https://ashope-commerce-backend.vercel.app/api",
+  baseURL:"https://ashope-backend.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },

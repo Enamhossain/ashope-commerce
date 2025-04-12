@@ -26,7 +26,7 @@ function Header() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra's modal handling
-
+  
   // Fetch banners from API
   useEffect(() => {
     async function fetchSliders() {
