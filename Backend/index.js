@@ -7,8 +7,6 @@ const supportsRoutes = require('./routes/supportRoutes');
 const bannerRoute = require('./routes/bannerRoute');
 const client = require('./config/db');
 const cookieParser = require("cookie-parser");
-const { default: router } = require('./Controllers/UiControllar');
-const { apiKeyMiddleware } = require('./middlewares/apiKeyMiddleware');
 const app = express();
 dotenv.config();
 app.use(cookieParser());
