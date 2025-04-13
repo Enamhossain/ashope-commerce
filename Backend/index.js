@@ -30,7 +30,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api", userRoutes);
-app.use('/api/products',apiKeyMiddleware, productRoutes);
+app.use('/api/products', productRoutes);
 app.use("/",supportsRoutes );
 app.use("/api/banners", bannerRoute);
 app.get('/', (req, res) => {
