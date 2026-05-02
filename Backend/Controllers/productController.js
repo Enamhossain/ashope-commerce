@@ -1,23 +1,12 @@
-const { ObjectId } = require("mongodb");
-const productCollection = require("../models/product");
+const productService = require("../services/productService");
 
 exports.deletedproduct = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid product ID." });
-    }
-
-    const result = await productCollection.deleteOne({ _id: new ObjectId(id) });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ message: "Product not found." });
-    }
-
+    await productService.deleteProduct(id);
     res.status(200).json({ message: "Product deleted successfully." });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(err.message === "Product not found" ? 404 : 400).json({ message: err.message });
   }
 };
 
@@ -25,92 +14,35 @@ exports.reviewProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const review = req.body;
-
-    console.log("Received review:", review);
-    console.log("Product ID:", id);
-
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid product ID." });
-    }
-
-    // Use updateOne instead of findByIdAndUpdate
-    const updatedProduct = await productCollection.updateOne(
-      { _id: new ObjectId(id) }, // Find product by ID
-      { $push: { reviews: review } } // Push new review
-    );
-
-    if (updatedProduct.modifiedCount === 0) {
-      return res.status(404).json({ message: "Product not found." });
-    }
-    console.log("Updated Product:", updatedProduct);
-
-    res.status(200).json({
-      message: "Review added successfully.",
-      product: updatedProduct, 
-    });
+    await productService.addReview(id, review);
+    res.status(200).json({ message: "Review added successfully." });
   } catch (err) {
-    console.error("Error reviewing product:", err.message);
-    res.status(500).json({
-      message: "Failed to review product.",
-      error: err.message,
-    });
+    res.status(400).json({ message: "Failed to review product.", error: err.message });
   }
 };
 
 exports.editProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("Received request:", id); // Debugging Log
     const updates = req.body;
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid product ID." });
-    }
-    const updatedProduct = await productCollection.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      { $set: updates },
-      { returnDocument: "after" }
-    );
-
-    // ✅ Check if product exists
-    if (!updatedProduct.value) {
-      return res.status(404).json({ message: "Product not found." });
-    }
-
-    // ✅ Success response
-    res.status(200).json({
-      message: "Product updated successfully.",
-      product: updatedProduct.value,
-    });
+    const product = await productService.updateProduct(id, updates);
+    res.status(200).json({ message: "Product updated successfully.", product });
   } catch (err) {
-    console.error("Error updating product:", err.message);
-    res.status(500).json({
-      message: "Failed to update product.",
-      error: err.message,
-    });
+    res.status(400).json({ message: "Failed to update product.", error: err.message });
   }
 };
 
 exports.getProducts = async (req, res) => {
   try {
-    const { category, subcategory, nestedSubcategory } = req.params; // Now all are in params
-    const { page = 1, limit = 10 } = req.query; // Pagination params
+    const { category, subcategory, nestedSubcategory } = req.params;
+    const { page = 1, limit = 10 } = req.query;
 
     const filter = {};
-
     if (category) filter.category = category;
     if (subcategory) filter.subcategory = subcategory;
     if (nestedSubcategory) filter.nestedSubcategory = nestedSubcategory;
 
-    console.log("Filters applied:", filter);
-
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const products = await productCollection
-      .find(filter)
-      .skip(skip)
-      .limit(parseInt(limit))
-      .toArray();
-
-    const totalProducts = await productCollection.countDocuments(filter);
+    const { products, totalProducts } = await productService.getProducts(filter, page, limit);
 
     res.status(200).json({
       products,
@@ -119,28 +51,16 @@ exports.getProducts = async (req, res) => {
       totalPages: Math.ceil(totalProducts / limit),
     });
   } catch (err) {
-    console.error("Error fetching products:", err);
-    res.status(500).json({
-      message: "Failed to fetch products. Please try again later.",
-      error: err.message,
-    });
+    res.status(500).json({ message: "Failed to fetch products.", error: err.message });
   }
 };
 
 exports.productsCollection = async (req, res) => {
   try {
     const {
-      category,
-      subcategory,
-      nestedSubcategory,
-      size,
-      fit,
-      pattern,
-      colors,
-      minPrice,
-      maxPrice,
-      page = 1,
-      limit = 10,
+      category, subcategory, nestedSubcategory,
+      size, fit, pattern, colors, minPrice, maxPrice,
+      page = 1, limit = 10,
     } = req.query;
 
     let filter = {};
@@ -154,51 +74,29 @@ exports.productsCollection = async (req, res) => {
     if (minPrice && maxPrice)
       filter.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) };
 
-    const products = await productCollection
-      .find(filter)
-      .skip((page - 1) * limit)
-      .limit(parseInt(limit));
+    const { totalProducts } = await productService.getProducts(filter, page, limit);
 
-    const totalProducts = await products.countDocuments(filter);
-
-    res.status(200).json({
-      totalProducts,
-    });
+    res.status(200).json({ totalProducts });
   } catch (err) {
-    console.error("Error fetching products:", err);
-    res.status(500).json({
-      message: "Failed to fetch products. Please try again later.",
-      error: err.message,
-    });
+    res.status(500).json({ message: "Failed to fetch product count.", error: err.message });
   }
 };
 
 exports.productDetailsById = async (req, res) => {
-  const id = req.params.id;
-  console.log("Received ID:", id); // Debugging the id
-
-  if (!id) {
-    return res.status(400).json({ error: "Invalid product ID" });
-  }
-
   try {
-    const product = await productCollection.findOne({ _id: new ObjectId(id) });
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
+    const product = await productService.getProductById(req.params.id);
     return res.status(200).json(product);
   } catch (error) {
-    console.error("Error fetching product:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    res.status(error.message === "Product not found" ? 404 : 400).json({ error: error.message });
   }
 };
 
 exports.createProduct = async (req, res) => {
-  const product = req.body;
   try {
-    const newProduct = await productCollection.insertOne(product);
+    const newProduct = await productService.createProduct(req.body);
     res.status(201).json(newProduct);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
+

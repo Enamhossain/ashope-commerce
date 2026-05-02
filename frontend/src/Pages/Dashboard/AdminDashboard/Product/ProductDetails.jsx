@@ -24,7 +24,7 @@ import EditProductModal from "./EditModelProduct";
 
 const ProductDetails = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
-  const [searchText, setSearchText] = useState(""); // ✅ Search input state
+  const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const {
@@ -40,11 +40,11 @@ const ProductDetails = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
+
   useEffect(() => {
     fetchProducts({ limit: entriesPerPage });
   }, [entriesPerPage, fetchProducts]);
 
-  // ✅ Efficient Search Filtering
   useEffect(() => {
     const filtered = products.filter((product) =>
       product?.productName?.toLowerCase().includes(searchText.toLowerCase())
@@ -52,47 +52,37 @@ const ProductDetails = () => {
     setFilteredProducts(filtered);
   }, [searchText, products]);
 
-  const transformProductData = (products) => ({
-    id: products._id,
-    name: products.productName,
-    price: products.price,
-    brand: products.brand,
-    category: products.category,
-    subcategory: products.subcategory,
-    stock: products.stock,
-    startDate: new Date(products.createdAt).toLocaleDateString(),
-    image: products.images || "/placeholder.png",
+  const transformProductData = (product) => ({
+    id: product._id,
+    name: product.productName,
+    price: product.price,
+    brand: product.brand,
+    category: product.category,
+    subcategory: product.subcategory,
+    stock: product.stock,
+    startDate: new Date(product.createdAt).toLocaleDateString(),
+    image: product.images || "/placeholder.png",
   });
 
-  const handleEditClick = (products) => {
-  
-    setSelectedProduct(products);
-    onOpen(); // Open the modal
-  };
-
-  const handleEntriesChange = (e) => {
-    setEntriesPerPage(parseInt(e.target.value));
+  const handleEditClick = (product) => {
+    setSelectedProduct(product);
+    onOpen();
   };
 
   const handleOneDeletedProduct = async (id) => {
     try {
       await deleteProduct(id);
-      console.log(id);
       toast({
         title: "Product Deleted",
-        description: "The product has been successfully removed.",
         status: "success",
         duration: 3000,
         isClosable: true,
         position: "top-right",
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
     } catch (error) {
       toast({
         title: "Deletion Failed",
-        description: error.message || "Could not delete the product.",
+        description: error.message,
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -102,231 +92,107 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-6">
-        {/* Entries per page selector */}
-        <div className="flex items-center space-x-2 text-gray-600">
-          <span className="text-sm">Showing</span>
-          <select
-            className="border rounded-md text-sm px-2 py-1"
-            value={entriesPerPage}
-            onChange={handleEntriesChange}
-          >
-            <option>10</option>
-            <option>25</option>
-            <option>50</option>
-          </select>
-          <span className="text-sm">entries</span>
+    <div className="premium-card overflow-hidden">
+      <div className="p-8 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <h2 className="text-xl font-bold text-white mb-1">Product Inventory</h2>
+          <p className="text-xs text-gray-400">Manage and track your collection catalog</p>
         </div>
 
-        {/* Search bar */}
-        <div className="flex items-center space-x-4">
-          <div className="relative">
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="relative group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-primary transition-colors" size={18} />
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder="Filter products..."
               onChange={(e) => setSearchText(e.target.value)}
               value={searchText}
-              className="pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-white/5 border border-white/10 rounded-xl py-2.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm w-full md:w-64 text-white"
             />
-            <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
           </div>
-          <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-            <Plus className="w-4 h-4 mr-2" />
-            Add new
-          </button>
+          <Link to="../add">
+            <button className="flex items-center gap-2 px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-xl hover:bg-indigo-600 transition-all shadow-lg shadow-primary/20">
+              <Plus size={18} />
+              Add Product
+            </button>
+          </Link>
         </div>
       </div>
 
-      <Box overflowX="auto" p={4}>
+      <div className="overflow-x-auto">
         {isLoading ? (
-          <Flex justify="center" py={4}>
-            <Spinner size="xl" />
-          </Flex>
-        ) : error ? (
-          <Text color="red.500" textAlign="center" py={4}>
-            Error loading products: {error}
-          </Text>
-        ) : isMobile ? (
-          <Flex direction="column" gap={4}>
-            {filteredProducts.map((product) => {
-              const transformedProduct = transformProductData(product);
-              return (
-                <Card
-                  key={transformedProduct.id}
-                  p={4}
-                  shadow="lg"
-                  borderRadius="lg"
-                >
-                  <CardBody>
-                    <Box display="flex" align="center" gap={4} flexWrap="wrap">
-                      <Image
-                        boxSize={{ base: "200px", md: "50px" }}
-                        borderRadius="md"
-                        src={transformedProduct.image}
-                        alt={transformedProduct.name}
-                      />
-                      <Box
-                        fontSize={{ base: "sm", md: "md" }}
-                        fontFamily="Inter, sans-serif"
-                      >
-                        <Text fontWeight="medium">
-                          Name: {transformedProduct.name}
-                        </Text>
-                        <Text>
-                          ID: <b>{transformedProduct.id}</b>
-                        </Text>
-                        <Text>
-                          Price: <b>{transformedProduct.price} BDT</b>
-                        </Text>
-                        <Text>Brand: {transformedProduct.brand}</Text>
-                        <Text>Category: {transformedProduct.subcategory}</Text>
-                        <Text>
-                          Stock:{" "}
-                          <Button
-                            size="xs"
-                            fontSize="sm"
-                            fontWeight="bold"
-                            colorScheme={
-                              transformedProduct.stock === 0
-                                ? "red"
-                                : transformedProduct.stock <= 10
-                                ? "yellow"
-                                : "green"
-                            }
-                          >
-                            {transformedProduct.stock}
-                          </Button>
-                        </Text>
-                        <Text>Added Date: {transformedProduct.startDate}</Text>
-                      </Box>
-                    </Box>
-
-                    <Flex mt={4} gap={2} flexWrap="wrap">
-                      <Button size="sm" colorScheme="blue" variant="ghost">
-                        <Eye size={16} />
-                      </Button>
-                      <Button
-                        size="sm"
-                        colorScheme="green"
-                        onClick={() => handleEditClick(transformedProduct)}
-                      >
-                        <Pencil size={16} />
-                      </Button>
-
-                      <Button
-                        size="sm"
-                        colorScheme="red"
-                        onClick={() =>
-                          handleOneDeletedProduct(transformedProduct.id)
-                        }
-                      >
-                        <Trash2 size={16} />
-                      </Button>
-                    </Flex>
-                  </CardBody>
-                </Card>
-              );
-            })}
+          <Flex justify="center" py={20}>
+            <Spinner size="xl" color="primary" thickness="4px" />
           </Flex>
         ) : (
-          <Table variant="simple" size={{ base: "sm", md: "md" }}>
-            <Thead>
+          <Table variant="unstyled" className="w-full">
+            <Thead className="bg-white/5">
               <Tr>
-                {[
-                  "Product",
-                  "Product ID",
-                  "Price",
-                  "Brand",
-                  "Category",
-                  "Stock",
-                  "Added Date",
-                  "Action",
-                ].map((header) => (
-                  <Th key={header}>{header}</Th>
+                {["Product", "Brand", "Category", "Price", "Stock", "Date", "Actions"].map((header) => (
+                  <Th key={header} className="!text-[10px] !font-bold !text-gray-500 !uppercase !tracking-widest !py-5 !px-8">
+                    {header}
+                  </Th>
                 ))}
               </Tr>
             </Thead>
-            <Tbody>
+            <Tbody className="divide-y divide-white/5">
               {filteredProducts.map((product) => {
-                const transformedProduct = transformProductData(product);
+                const transformed = transformProductData(product);
+                const isOutOfStock = transformed.stock === 0;
+                const isLowStock = transformed.stock <= 10;
+
                 return (
-                  <Tr key={transformedProduct.id} _hover={{ bg: "gray.100" }}>
-                    <Td>
-                      <Flex align="center">
-                        <Image
-                          boxSize="40px"
-                          borderRadius="md"
-                          src={transformedProduct.image}
-                        />
-                        <Text
-                          ml={3}
-                          fontSize="md"
-                          fontFamily="Inter, sans-serif"
-                          fontWeight="medium"
-                        >
-                          {transformedProduct.name}
-                        </Text>
+                  <Tr key={transformed.id} className="group hover:bg-white/5 transition-colors">
+                    <Td className="!py-5 !px-8">
+                      <Flex align="center" gap={4}>
+                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-white/5 ring-1 ring-white/10">
+                          <Image
+                            src={transformed.image}
+                            alt={transformed.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div>
+                          <Text className="text-sm font-bold text-white leading-tight mb-1">{transformed.name}</Text>
+                          <Text className="text-[10px] text-gray-500 font-mono">{transformed.id}</Text>
+                        </div>
                       </Flex>
                     </Td>
-                    <Td>
-                      <Text fontSize="sm" fontFamily="Inter, sans-serif">
-                        {transformedProduct.id}
-                      </Text>
+                    <Td className="!py-5 !px-8 text-sm text-gray-400">{transformed.brand}</Td>
+                    <Td className="!py-5 !px-8">
+                      <span className="text-[10px] font-bold text-indigo-400 bg-indigo-400/10 px-2.5 py-1 rounded-md uppercase border border-indigo-400/20">
+                        {transformed.subcategory}
+                      </span>
                     </Td>
-                    <Td>
-                      <Text fontSize="sm" fontFamily="Inter, sans-serif">
-                        {transformedProduct.price} BDT
-                      </Text>
+                    <Td className="!py-5 !px-8 text-sm font-bold text-white">
+                      {transformed.price} BDT
                     </Td>
-                    <Td>
-                      <Text fontSize="sm" fontFamily="Inter, sans-serif">
-                        {transformedProduct.brand}
-                      </Text>
+                    <Td className="!py-5 !px-8">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-1.5 h-1.5 rounded-full ${isOutOfStock ? "bg-red-500" : isLowStock ? "bg-amber-500" : "bg-emerald-500"}`} />
+                        <Text className={`text-xs font-bold ${isOutOfStock ? "text-red-400" : isLowStock ? "text-amber-400" : "text-emerald-400"}`}>
+                          {transformed.stock} left
+                        </Text>
+                      </div>
                     </Td>
-                    <Td>
-                      <Text fontSize="sm" fontFamily="Inter, sans-serif">
-                        {transformedProduct.subcategory}
-                      </Text>
-                    </Td>
-                    <Td>
-                      <Button
-                        size="xs"
-                        fontSize="sm"
-                        fontFamily="Inter, sans-serif"
-                        colorScheme={
-                          transformedProduct.stock === 0
-                            ? "red"
-                            : transformedProduct.stock <= 12
-                            ? "yellow"
-                            : "green"
-                        }
-                      >
-                        {transformedProduct.stock}
-                      </Button>
-                    </Td>
-                    <Td>
-                      <Text fontSize="sm" fontFamily="Inter, sans-serif">
-                        {transformedProduct.startDate}
-                      </Text>
-                    </Td>
-                    <Td>
+                    <Td className="!py-5 !px-8 text-xs text-gray-500">{transformed.startDate}</Td>
+                    <Td className="!py-5 !px-8">
                       <Flex gap={2}>
-                        <Button size="sm" colorScheme="blue" variant="ghost">
+                        <button className="p-2 glass !bg-white/5 text-gray-400 hover:!text-white rounded-lg transition-all">
                           <Eye size={16} />
-                        </Button>
-                        <Button size="sm" colorScheme="green" onClick={onOpen}>
+                        </button>
+                        <button
+                          onClick={() => handleEditClick(product)}
+                          className="p-2 glass !bg-white/5 text-gray-400 hover:!text-primary rounded-lg transition-all"
+                        >
                           <Pencil size={16} />
-                        </Button>
-                        <Button
-                          size="sm"
-                          colorScheme="red"
-                          onClick={() =>
-                            handleOneDeletedProduct(transformedProduct.id)
-                          }
+                        </button>
+                        <button
+                          onClick={() => handleOneDeletedProduct(transformed.id)}
+                          className="p-2 glass !bg-white/5 text-gray-400 hover:!text-secondary rounded-lg transition-all"
                         >
                           <Trash2 size={16} />
-                        </Button>
+                        </button>
                       </Flex>
                     </Td>
                   </Tr>
@@ -335,16 +201,29 @@ const ProductDetails = () => {
             </Tbody>
           </Table>
         )}
-        {/* Edit Product Modal */}
-        <EditProductModal
-          isOpen={isOpen}
-          onClose={onClose}
-          updateProduct={updateProduct}
-          products={selectedProduct}
-        />
-      </Box>
+      </div>
+
+      <div className="p-6 border-t border-white/5 flex items-center justify-between">
+        <Text className="text-xs text-gray-500">
+          Showing {filteredProducts.length} of {products.length} products
+        </Text>
+        <div className="flex items-center gap-2">
+          <button className="px-4 py-2 glass !bg-white/5 text-gray-400 text-xs rounded-lg hover:!bg-white/10 transition-all disabled:opacity-50" disabled>Previous</button>
+          <button className="px-4 py-2 glass !bg-primary text-white text-xs rounded-lg hover:!bg-indigo-600 transition-all shadow-lg shadow-primary/20">1</button>
+          <button className="px-4 py-2 glass !bg-white/5 text-gray-400 text-xs rounded-lg hover:!bg-white/10 transition-all">Next</button>
+        </div>
+      </div>
+
+      <EditProductModal
+        isOpen={isOpen}
+        onClose={onClose}
+        updateProduct={updateProduct}
+        products={selectedProduct}
+      />
     </div>
   );
 };
+
+
 
 export default ProductDetails;

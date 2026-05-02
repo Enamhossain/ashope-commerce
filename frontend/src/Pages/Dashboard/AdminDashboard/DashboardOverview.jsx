@@ -84,34 +84,130 @@ const StatsCard = ({ stat }) => (
 
 // Dashboard Component
 const DashboardOverview = () => {
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+        titleColor: '#fff',
+        bodyColor: '#94a3b8',
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: false,
+      }
+    },
+    scales: {
+      y: {
+        grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+        ticks: { color: '#64748b', font: { size: 10 } }
+      },
+      x: {
+        grid: { display: false },
+        ticks: { color: '#64748b', font: { size: 10 } }
+      }
+    }
+  };
+
   return (
-    <Box p={6}>
+    <Box>
+      <header className="mb-10">
+        <h2 className="text-3xl font-bold text-white mb-2">Platform Overview</h2>
+        <p className="text-gray-400">Welcome back, admin. Here's what's happening today.</p>
+      </header>
+
       {/* Stats Overview */}
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6}>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6} mb={10}>
         {stats.map((stat, index) => (
-          <StatsCard key={index} stat={stat} />
+          <div key={index} className="premium-card p-6 group">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 rounded-xl bg-white/5 group-hover:bg-primary/20 transition-colors">
+                <Icon as={stat.icon} className="text-primary group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="text-[10px] font-bold text-green-400 bg-green-400/10 px-2 py-1 rounded-full">+12.5%</span>
+            </div>
+            <p className="text-sm font-medium text-gray-400 mb-1">{stat.title}</p>
+            <h3 className="text-2xl font-bold text-white tracking-tight">{stat.value}</h3>
+          </div>
         ))}
       </SimpleGrid>
 
-      {/* Top Selling Products Bar Chart */}
-      <Box p={6} bg="white" rounded="lg" shadow="md" mt={6}>
-        <Heading size="md" mb={4}>Top Selling Products</Heading>
-        <Bar data={barData} options={barChartOptions} />
-      </Box>
+      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8}>
+        {/* Monthly Revenue */}
+        <div className="premium-card p-8">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-lg font-bold text-white">Revenue Performance</h3>
+            <select className="bg-white/5 border border-white/10 rounded-lg text-xs px-3 py-1.5 outline-none focus:ring-1 focus:ring-primary">
+              <option value="7">Last 7 Days</option>
+              <option value="30">Last 30 Days</option>
+            </select>
+          </div>
+          <div className="h-[300px]">
+            <Line 
+              data={salesData} 
+              options={{
+                ...chartOptions,
+                elements: {
+                  line: { borderColor: '#6366f1', borderWidth: 3, fill: true, backgroundColor: 'rgba(99, 102, 241, 0.1)' },
+                  point: { radius: 0, hoverRadius: 6, backgroundColor: '#6366f1' }
+                }
+              }} 
+            />
+          </div>
+        </div>
 
-      {/* Monthly Revenue Line Chart */}
-      <Card mt={6} p={4} boxShadow="md">
-        <CardHeader>
-          <Text fontSize="xl" fontWeight="bold">Monthly Revenue Overview</Text>
-        </CardHeader>
-        <CardBody>
-          <Box height="300px">
-            <Line data={salesData} />
-          </Box>
-        </CardBody>
-      </Card>
+        {/* Top Selling Products */}
+        <div className="premium-card p-8">
+          <h3 className="text-lg font-bold text-white mb-8">Top Selling Products</h3>
+          <div className="h-[300px]">
+             <Bar 
+              data={barData} 
+              options={{
+                ...chartOptions,
+                plugins: {
+                  ...chartOptions.plugins,
+                  legend: { display: true, position: 'top', labels: { color: '#94a3b8', font: { size: 10 }, usePointStyle: true } }
+                }
+              }} 
+            />
+          </div>
+        </div>
+      </SimpleGrid>
+
+      {/* Recent Activity Table (Placeholder for future functionality) */}
+      <div className="premium-card mt-8 p-8 overflow-hidden">
+        <h3 className="text-lg font-bold text-white mb-6">Recent Inventory Activity</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="border-b border-white/5">
+                <th className="pb-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Product</th>
+                <th className="pb-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Category</th>
+                <th className="pb-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Stock</th>
+                <th className="pb-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Price</th>
+                <th className="pb-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/5">
+              {topProducts.map((product, i) => (
+                <tr key={i} className="group hover:bg-white/5 transition-colors">
+                  <td className="py-4 font-medium text-sm text-gray-300">{product.name}</td>
+                  <td className="py-4 text-sm text-gray-500">Clothing</td>
+                  <td className="py-4 text-sm text-gray-300">{product.sales} units</td>
+                  <td className="py-4 text-sm text-white font-bold">${product.revenue / product.sales}</td>
+                  <td className="py-4">
+                    <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">In Stock</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </Box>
   );
 };
+
 
 export default DashboardOverview;

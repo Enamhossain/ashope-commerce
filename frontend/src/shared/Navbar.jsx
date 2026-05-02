@@ -97,81 +97,61 @@ export default function Navbar() {
   return (
     <>
       <Box
-        bg="gray.800"
-        p="1"
+        className="glass border-b border-white/5"
+        p="2"
         color="white"
-        borderBottom="1px solid"
-        borderColor="gray.500"
       >
         <Flex
           align="center"
           justify="space-between"
-          ml={[0, 0, 10]} // No margin on mobile, margin on larger screens
-          flexDirection={["column", "column", "row"]} // Column layout for mobile, row for desktop
-          flexWrap={"wrap"}
+          maxW="1400px"
+          mx="auto"
+          px="4"
+          flexDirection={["column", "column", "row"]}
+          gap="2"
         >
-          <Flex gap="2" flexWrap={"wrap"} justifyContent={"center"}>
-            <Text fontWeight="semibold">squadparkclothing@gmail.com</Text>
-          
-            <Text fontWeight="semibold">+8801818-417242</Text>
+          <Flex gap="4" align="center">
+            <Text fontSize="xs" fontWeight="medium" color="var(--text-muted)">squadparkclothing@gmail.com</Text>
+            <Box w="1px" h="10px" bg="var(--surface-border)" />
+            <Text fontSize="xs" fontWeight="medium" color="var(--text-muted)">+8801818-417242</Text>
           </Flex>
           <Flex
-            gap="5"
+            gap="6"
             align="center"
-            justify="center"
-            marginRight={[0, 0, 20]} // Remove margin on mobile
           >
-            <Flex gap="3" align="center">
-              <a
-                href="https://www.facebook.com/Squadpark.clothings"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaFacebook />
-              </a>
-              <a
-                href="https://www.instagram.com/Squadpark.clothings"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="https://www.pinterest.com/Squadpark.clothings"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaPinterest />
-              </a>
+            <Flex gap="4" align="center" color="var(--text-muted)">
+              <a href="https://facebook.com" className="hover:text-primary transition-colors"><FaFacebook /></a>
+              <a href="https://instagram.com" className="hover:text-primary transition-colors"><FaInstagram /></a>
+              <a href="https://pinterest.com" className="hover:text-primary transition-colors"><FaPinterest /></a>
             </Flex>
-            <Flex gap="3" align="center">
+            <Flex gap="4" align="center">
               <Select
                 value={language}
                 onChange={handleLanguageChange}
-                bg="gray.100"
-                width="30"
-                color="blackAlpha.900"
+                size="xs"
+                variant="unstyled"
+                width="70px"
+                color="var(--text-muted)"
+                _hover={{ color: 'white' }}
               >
                 <option value="en">English</option>
                 <option value="bn">বাংলা</option>
                 <option value="ar">العربية</option>
               </Select>
-              <Link
-                className="login hidden md:flex gap-2"
-                textDecoration="none"
-              >
+              <Box className="hidden md:block">
                 <Authentication
                   handleLogout={handleLogout}
                   isCheckingAuth={isCheckingAuth}
                   user={user}
                   isLoading={isLoading}
                 />
-              </Link>
+              </Box>
             </Flex>
           </Flex>
         </Flex>
       </Box>
-      <div className="bg-black px-4 sm:px-6 lg:px-20 text-white">
+
+      <div className="glass sticky top-0 z-50 border-b border-white/5 px-4 sm:px-6 lg:px-20 text-white">
         <Flex height="16" alignItems="center" justifyContent="space-between">
           <Flex alignItems="center" gap="4">
             {isMobile && (
@@ -191,10 +171,11 @@ export default function Navbar() {
               isOpen={isOpen}
               size="xs"
             >
-              <DrawerOverlay />
-              <DrawerContent>
+              <DrawerOverlay backdropFilter="blur(4px)" />
+              <DrawerContent bg="var(--background)" borderRight="1px solid" borderColor="var(--surface-border)">
                 <DrawerHeader
                   borderBottomWidth="1px"
+                  borderColor="var(--surface-border)"
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
@@ -202,30 +183,23 @@ export default function Navbar() {
                 >
                   <Heading
                     size="md"
-                    fontFamily="body" // Use "serif" for a premium look
-                    fontWeight="bold"
-                    color="gray.900"
-                    _hover={{
-                      color: "red.500", // Change text color on hover
-                      textShadow: "sm", // Subtle shadow for effect
-                      transition: "0.3s ease-in-out",
-                    }}
+                    className="text-gradient"
                   >
                     <Link to="/">Squadpark</Link>
                   </Heading>
-                  <Button onClick={onClose} fontSize="xl" variant="ghost">
+                  <Button onClick={onClose} fontSize="xl" variant="ghost" color="white">
                     &times;
                   </Button>
                 </DrawerHeader>
-                <DrawerBody px={4} py={6}>
+                <DrawerBody px={4} py={6} color="white">
                   <Accordion allowToggle className="space-y-2">
                     {options.map((option, index) => (
                       <AccordionItem key={index} className="border-none">
                         <h2>
-                          <AccordionButton className="flex justify-between items-center p-3 rounded-lg hover:bg-gray-100">
+                          <AccordionButton className="flex justify-between items-center p-3 rounded-lg hover:bg-white/5">
                             <Link
                               to={`/products/collection/${option.label.toLowerCase()}`}
-                              className="flex items-center gap-2 text-gray-800 font-medium"
+                              className="flex items-center gap-2 font-medium"
                             >
                               {option.icon}
                               {option.label}
@@ -237,24 +211,24 @@ export default function Navbar() {
                         </h2>
 
                         {option.subOptions && (
-                          <AccordionPanel className="ml-4 space-y-1 border-l border-gray-300 pl-3">
+                          <AccordionPanel className="ml-4 space-y-1 border-l border-white/10 pl-3">
                             {option.subOptions.map((subOption, subIndex) => (
                               <Accordion allowToggle key={subIndex}>
                                 <AccordionItem className="border-none">
                                   <h3>
-                                    <AccordionButton className="flex justify-between items-center p-2 rounded-md hover:bg-gray-50">
-                                      <div className="flex items-center gap-2 text-gray-700 text-sm">
+                                    <AccordionButton className="flex justify-between items-center p-2 rounded-md hover:bg-white/5">
+                                      <div className="flex items-center gap-2 text-sm text-gray-300">
                                         {subOption.icon}
                                         {subOption.label}
                                       </div>
                                       {subOption.sub && (
-                                        <ChevronDown className="text-gray-500" />
+                                        <ChevronDown size={14} className="text-gray-500" />
                                       )}
                                     </AccordionButton>
                                   </h3>
 
                                   {subOption.sub && (
-                                    <AccordionPanel className="ml-4 space-y-1 border-l border-gray-200 pl-3">
+                                    <AccordionPanel className="ml-4 space-y-1 border-l border-white/5 pl-3">
                                       {subOption.sub.map(
                                         (nested, nestedIndex) => (
                                           <Link
@@ -262,7 +236,7 @@ export default function Navbar() {
                                             to={`/products/collection/${option.label.toLowerCase()}/${subOption.label.toLowerCase()}/${
                                               nested.label
                                             }`}
-                                            className="block p-2 text-sm text-gray-600 hover:bg-gray-100 rounded-md"
+                                            className="block p-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-md transition-colors"
                                           >
                                             {nested.label}
                                           </Link>
@@ -281,8 +255,9 @@ export default function Navbar() {
                 </DrawerBody>
                 <DrawerFooter
                   borderTopWidth="1px"
+                  borderColor="var(--surface-border)"
                   justifyContent="center"
-                  bg="gray.50"
+                  bg="var(--surface)"
                   py={4}
                 >
                   <Flex gap={4}>
@@ -297,63 +272,40 @@ export default function Navbar() {
           <Heading
             as="div"
             display={{ base: "none", md: "block" }}
-            size={{ base: "sm", md: "xl", lg: "2xl" }}
-            fontFamily="mono"
-            fontWeight="bold"
-            _hover={{
-              color: "red.500", // Change text color on hover
-              textShadow: "sm", // Subtle shadow for effect
-              transition: "0.3s ease-in-out",
-            }}
+            size="lg"
+            className="text-gradient hover:scale-105 transition-transform duration-300"
           >
             <Link to="/">Squadpark</Link>
           </Heading>
 
-          <div className="relative w-52 md:w-full">
+          <div className="relative flex-1 max-w-md mx-8 hidden md:block">
             {/* Search Bar */}
-            <Flex gap={4} alignItems="end" w="100%" justifyContent="end">
-              <Input
-                variant="flushed"
-                placeholder="Search"
-                size="lg"
+            <div className="relative group">
+              <IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" />
+              <input
+                type="text"
+                placeholder="Search products..."
+                className="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-12 pr-10 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
                 onChange={(e) => setSearchText(e.target.value)}
                 value={searchText}
-                focusBorderColor="gray.100"
-                w="300px"
-                h="40px"
-                px={4}
               />
-            </Flex>
-
-            {/* Close/Search Icon */}
-            {searchText ? (
-              <IoClose
-                onClick={() => setSearchText("")}
-                className="absolute top-2.5 right-4 text-xl hover:text-red-500 cursor-pointer duration-200"
-              />
-            ) : (
-              <IoSearchOutline className="absolute top-2.5 right-4 text-xl" />
-            )}
+              {searchText && (
+                <IoClose
+                  onClick={() => setSearchText("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white cursor-pointer duration-200"
+                />
+              )}
+            </div>
 
             {/* Search Results */}
             {searchText && (
               <Box
-                position="absolute"
-                left="0"
-                top="20"
-                w="100%"
-                maxH="500px"
-                overflowY="scroll"
-                bg="white"
+                className="glass mt-4 absolute w-full max-h-[70vh] overflow-y-auto rounded-2xl p-4 shadow-2xl border border-white/10"
                 zIndex="20"
-                boxShadow="lg"
-                p={4}
-                transition="max-height 0.3s ease-in-out"
-                display={searchText ? "block" : "none"}
               >
                 {filteredProducts.length > 0 ? (
                   <SimpleGrid
-                    columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+                    columns={{ base: 1, sm: 2 }}
                     spacing={4}
                   >
                     {filteredProducts.map((product) => (
@@ -366,7 +318,7 @@ export default function Navbar() {
                   </SimpleGrid>
                 ) : (
                   <Flex align="center" justify="center" p={10}>
-                    <Text fontSize="xl" color="gray.600">
+                    <Text fontSize="lg" color="var(--text-muted)">
                       No matches for "{searchText}"
                     </Text>
                   </Flex>
@@ -378,178 +330,104 @@ export default function Navbar() {
           <Flex
             justifyContent="space-between"
             align="center"
-            margin={["0.2rem", "0.5rem", "1.3rem", "2rem"]}
+            gap={6}
           >
             <MenuProfile
               isCheckingAuth={isCheckingAuth}
               handleLogout={handleLogout}
               user={user}
             />
-            <Flex gap={4} align="center">
-              <Link to="/cart">
-                <div className="relative">
-                  {
-                    <ShoppingCart className="hover:text-skyText duration-200 cursor-pointer" />
-                  }
-
-                  {cartProduct?.length > 0 && (
-                    <span className="inline-flex items-center justify-center bg-red-500 text-white absolute -top-1 -right-2 text-[9px] rounded-full w-4 h-4">
-                      {cartProduct.length}
-                    </span>
-                  )}
-                </div>
+            <Flex gap={5} align="center">
+              <Link to="/cart" className="relative group">
+                <ShoppingCart className="group-hover:text-primary transition-colors duration-200 cursor-pointer" size={22} />
+                {cartProduct?.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-slate-900">
+                    {cartProduct.length}
+                  </span>
+                )}
               </Link>
 
-              <Link to="/favorites">
-                <div className="relative">
-                  {/* Favorite Icon */}
-                  <Heart className="hover:text-skyText duration-200 cursor-pointer" />
-
-                  {favoriteProduct?.length > 0 && (
-                    <span className="inline-flex items-center justify-center bg-red-500 text-white absolute -top-1 -right-2 text-[9px] rounded-full w-4 h-4">
-                      {favoriteProduct.length}
-                    </span>
-                  )}
-                </div>
+              <Link to="/favorites" className="relative group">
+                <Heart className="group-hover:text-secondary transition-colors duration-200 cursor-pointer" size={22} />
+                {favoriteProduct?.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-slate-900">
+                    {favoriteProduct.length}
+                  </span>
+                )}
               </Link>
             </Flex>
           </Flex>
         </Flex>
 
+        {/* Categories Bar */}
         <Box
           display={isLargeScreen ? "block" : "none"}
-          bg="black"
-          px={{ base: 4, sm: 6, lg: 32 }}
-          textColor="white"
-          mx="10%"
+          maxW="1400px"
+          mx="auto"
+          className="border-t border-white/5"
         >
-          <Flex h="16" align="center" justify="space-between" px={6}>
-            <Flex align="center" justify="center" gap={{ base: 4, md: 8 }}>
-              {options.map((option, index) => (
-                <Box key={index} position="relative">
-                  {!option.subOptions ? (
-                    <Link
-                      to={`/products/collection/${option.label.toLowerCase()}/${
-                        option.label
-                      }`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Button
-                        variant="link"
-                        fontWeight="bold"
-                        color="white"
-                        leftIcon={option.icon}
-                        _hover={{
-                          color: "red.600",
-                          transition: "color 0.3s ease-in-out",
-                        }} // Use blue.600 or yellow.500 based on branding
-                      >
+          <Flex h="12" align="center" justify="center" gap={12}>
+            {options.map((option, index) => (
+              <Box key={index} position="relative">
+                {!option.subOptions ? (
+                  <Link
+                    to={`/products/collection/${option.label.toLowerCase()}`}
+                    className="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-2"
+                  >
+                    {option.icon}
+                    {option.label}
+                  </Link>
+                ) : (
+                  <Popover trigger="hover" placement="bottom-start" gutter={12}>
+                    <PopoverTrigger>
+                      <button className="text-sm font-medium text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-2 outline-none">
+                        {option.icon}
                         {option.label}
-                      </Button>
-                    </Link>
-                  ) : (
-                    /* Multi-level Dropdown */
-                    <Popover trigger="hover" placement="bottom-start">
-                      <PopoverTrigger>
-                        <Button
-                          variant="link"
-                          fontSize="lg"
-                          fontWeight="medium"
-                          color="white"
-                          _hover={{
-                            color: "red.600",
-                            transition: "color 0.3s ease-in-out",
-                          }} // Change to blue.600 or yellow.500 based on branding
-                        >
-                          <HStack spacing={2}>
-                            {option.icon}
-                            <Link
-                              to={`/products/collection/${option.label.toLowerCase()}`}
-                            >
-                              {option.label}
-                            </Link>
-                          </HStack>
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent
-                        bg="white"
-                        shadow="lg"
-                        width={{ base: "100%", md: "800px" }}
-                        p={6}
-                        zIndex={10}
-                      >
-                        <PopoverArrow />
-                        <PopoverBody>
-                          <Grid
-                            templateColumns={{
-                              base: "1fr",
-                              md: "repeat(4, 1fr)",
-                            }}
-                            gap={4}
-                          >
-                            {option.subOptions.map((subOption, subIndex) => (
-                              <Box key={subIndex}>
-                                {/* Subcategory Label */}
-                                {subOption.label && (
-                                  <Text
-                                    fontSize="sm"
-                                    fontWeight="bold"
-                                    color="red.600" // Change to blue.600 or yellow.600 based on branding
-                                    mb={3}
-                                    textTransform="uppercase"
-                                    letterSpacing="wide" // Adds a slight spacing for better readability
+                        <ChevronDown size={14} />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      className="glass !bg-slate-900/95 border-white/10 rounded-2xl shadow-2xl outline-none"
+                      width="800px"
+                      p={8}
+                    >
+                      <PopoverArrow bg="slate-900" />
+                      <PopoverBody p={0}>
+                        <Grid templateColumns="repeat(4, 1fr)" gap={8}>
+                          {option.subOptions.map((subOption, subIndex) => (
+                            <Box key={subIndex}>
+                              <Text
+                                fontSize="xs"
+                                fontWeight="bold"
+                                color="primary"
+                                className="text-primary mb-4 uppercase tracking-widest"
+                              >
+                                {subOption.label}
+                              </Text>
+                              <div className="flex flex-col gap-2">
+                                {subOption.sub?.map((sub, subIdx) => (
+                                  <Link
+                                    key={subIdx}
+                                    to={`/products/collection/${option.label.toLowerCase()}/${subOption.label.toLowerCase()}/${sub.label}`}
+                                    className="text-sm text-gray-400 hover:text-white hover:translate-x-1 transition-all duration-200 flex items-center gap-2"
                                   >
-                                    {subOption.label}
-                                  </Text>
-                                )}
-                                {/* Nested Items */}
-                                {subOption.sub && (
-                                  <Box as="ul">
-                                    {subOption.sub.map((sub, subIdx) => (
-                                      <Box as="li" key={subIdx}>
-                                        <Link
-                                          to={`/products/collection/${option.label.toLowerCase()}/${subOption.label.toLowerCase()}/${
-                                            sub.label
-                                          }`}
-                                          style={{ textDecoration: "none" }}
-                                          aria-label={`View ${sub.label} products`}
-                                        >
-                                          <Flex
-                                            alignItems="center"
-                                            color="gray.600"
-                                            border="1px solid transparent"
-                                            _hover={{
-                                              color: "red.600", // Change to blue.600 or yellow.600 based on branding
-                                              borderColor: "red.300", // Subtle border effect on hover
-                                              transition:
-                                                "all 0.3s ease-in-out",
-                                            }}
-                                            p={2}
-                                            borderRadius="md"
-                                          >
-                                            {sub.icon && (
-                                              <Box mr={3}>{sub.icon}</Box>
-                                            )}
-                                            {sub.label}
-                                          </Flex>
-                                        </Link>
-                                      </Box>
-                                    ))}
-                                  </Box>
-                                )}
-                              </Box>
-                            ))}
-                          </Grid>
-                        </PopoverBody>
-                      </PopoverContent>
-                    </Popover>
-                  )}
-                </Box>
-              ))}
-            </Flex>
+                                    {sub.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </Box>
+                          ))}
+                        </Grid>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </Box>
+            ))}
           </Flex>
         </Box>
       </div>
+
     </>
   );
 }

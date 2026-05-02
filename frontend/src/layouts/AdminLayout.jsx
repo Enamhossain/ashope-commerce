@@ -15,83 +15,96 @@ import { useAuthStore } from "../store/authStore";
 
 function AdminLayout() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const bgColor = useColorModeValue("gray.100", "gray.900");
-  const {user } = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
-    <div className="flex h-screen" bg={bgColor}>
+    <div className="flex h-screen bg-[#0f172a] text-white relative overflow-hidden">
+      {/* Background Mesh */}
+      <div className="bg-mesh opacity-50"></div>
+
+      {/* Sidebar for Mobile */}
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xs">
-        <DrawerOverlay />
-        <DrawerContent>
+        <DrawerOverlay backdropFilter="blur(8px)" />
+        <DrawerContent bg="transparent" boxShadow="none">
           <Sidebar user={user} onClose={onClose} />
         </DrawerContent>
       </Drawer>
 
-      <div className="flex-1 flex flex-col">
-      
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
-       
-          <IconButton
-            aria-label="Open Menu"
-            icon={<Menu size={24} />}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            onClick={onOpen} 
-          />
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block w-64 h-full relative z-20">
+         <Sidebar user={user} onClose={onClose} />
+      </div>
 
-       
-          <div className="flex items-center flex-1">
-            <div className="relative flex-1 max-w-xl">
-              <input
-                type="text"
-                placeholder="Search here..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
+      <div className="flex-1 flex flex-col relative z-10 overflow-hidden">
+        {/* Header */}
+        <header className="h-20 glass border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-30">
+          <div className="flex items-center gap-4">
+            <IconButton
+              aria-label="Open Menu"
+              icon={<Menu size={24} />}
+              className="md:hidden glass !bg-white/5 !text-white hover:!bg-white/10 border-none"
+              onClick={onOpen}
+            />
+            <div className="hidden lg:flex items-center gap-2 text-sm text-gray-400">
+              <LayoutGrid size={16} />
+              <span>Admin Dashboard</span>
+              <span className="mx-2 text-white/20">/</span>
+              <span className="text-white font-medium capitalize">
+                {window.location.pathname.split("/").pop() || "Overview"}
+              </span>
             </div>
           </div>
 
-        
-          <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Moon size={20} className="text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg relative">
-              <Bell size={20} className="text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg relative">
-              <MessageSquare size={20} className="text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <Maximize2 size={20} className="text-gray-600" />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <LayoutGrid size={20} className="text-gray-600" />
-            </button>
-
-            <div className="flex items-center gap-3 ml-4">
-              <img
-                src={user.photoURL}
-                alt="Profile"
-                className="w-8 h-8 rounded-full object-cover"
+          <div className="flex items-center gap-6">
+            {/* Search Bar */}
+            <div className="relative hidden xl:block w-72 group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={18} />
+              <input
+                type="text"
+                placeholder="Search analytics..."
+                className="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm"
               />
-              <div>
-                <p className="text-sm font-medium">{user.name || user.displayName}</p>
-                <p className="text-xs text-gray-500">{user.role}</p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button className="p-2.5 glass !bg-white/5 !text-white hover:!bg-white/10 rounded-xl relative group transition-all">
+                <Bell size={20} className="group-hover:scale-110 transition-transform" />
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#0f172a]"></span>
+              </button>
+              <button className="p-2.5 glass !bg-white/5 !text-white hover:!bg-white/10 rounded-xl group transition-all">
+                <Settings size={20} className="group-hover:rotate-45 transition-transform" />
+              </button>
+            </div>
+
+            <Box className="w-[1px] h-8 bg-white/10 mx-2" />
+
+            <div className="flex items-center gap-4 pl-2">
+              <div className="text-right hidden sm:block">
+                <p className="text-sm font-semibold text-white leading-none mb-1">{user?.name || user?.displayName}</p>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-primary">{user?.role}</p>
+              </div>
+              <div className="relative">
+                 <img
+                  src={user?.photoURL || "https://ui-avatars.com/api/?name=" + (user?.name || "Admin")}
+                  alt="Profile"
+                  className="w-10 h-10 rounded-xl object-cover ring-2 ring-white/10 hover:ring-primary/50 transition-all cursor-pointer"
+                />
+                <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 border-2 border-[#0f172a] rounded-full"></div>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="flex-1 bg-gray-100 p-6 overflow-y-auto">
-          <h1 className="text-2xl font-bold text-gray-700">
-            <Outlet />
-          </h1>
+        {/* Main Content */}
+        <main className="flex-1 p-8 overflow-y-auto custom-scrollbar">
+           <div className="max-w-[1600px] mx-auto">
+              <Outlet />
+           </div>
         </main>
       </div>
     </div>
   );
 }
+
 
 export default AdminLayout;

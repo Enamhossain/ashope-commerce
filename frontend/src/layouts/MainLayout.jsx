@@ -6,13 +6,16 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout({ children }) {
   return (
-    <Box>
-      {/* Header */}
+    <Box className="min-h-screen relative overflow-hidden">
+      <div className="bg-mesh"></div>
       <Navbar />
-      <Outlet></Outlet>
+      <main className="relative z-10">
+        <Outlet />
+      </main>
       <Footer />
     </Box>
   );
 }
+
 
 export default MainLayout;

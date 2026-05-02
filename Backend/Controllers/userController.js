@@ -1,4 +1,5 @@
 const usersCollection = require("../models/user");
+const userService = require("../services/userService");
 const bcrypt = require("bcrypt");
 const { generateJWTToken } = require("../utils/generateJWTToken");
 const { generateVerificationPin } = require("../utils/generateVerificationpin");
@@ -48,10 +49,12 @@ exports.UsersDeleted= async (req,res)=>{
          return res.status(404).json({message:"User not found"});
       }
       res.status(200).json({message:"User deleted successfully",result});
-   } catch{
-
+   } catch (error) {
+      console.error("Error deleting user:", error);
+      res.status(500).json({ message: "Internal server error", error: error.message });
    }
 }
+
 
 
 exports.UsersAdminID = async (req, res) => {
@@ -143,11 +146,9 @@ exports.user = async (req, res) => {
 
 exports.Users = async (req, res) => {
   try {
-    const users = await usersCollection.find().toArray();
+    const users = await userService.getAllUsers(true);
     if (!users || users.length === 0) {
-      return res.status(200).json({
-        message: "No users in database",
-      });
+      return res.status(200).json({ message: "No users in database" });
     }
 
     return res.status(200).json({
@@ -277,16 +278,16 @@ exports.login = async (req, res) => {
 
 exports.checkAuth = async (req, res) => {
   try {
-    const user = await usersCollection.find().toArray();
-    console.log(user)
+    const userId = req.user.id;
+    const user = await userService.findById(userId);
+    
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    res.status(200).json({ success: true, user });
-    
+    // Exclude sensitive data
+    const { password, verificationPin, ...safeUser } = user;
+    res.status(200).json({ success: true, user: safeUser });
   } catch (error) {
     console.error("Error checking auth:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });

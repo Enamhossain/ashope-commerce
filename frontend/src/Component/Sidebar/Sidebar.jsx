@@ -28,9 +28,8 @@ function Sidebar({ user, onClose, ...rest }) {
       title: "Main",
       items: [{ name: "Dashboard", icon: Home, path: "/dashboard" }],
     },
-
-     {
-      title:"User Interface",
+    {
+      title: "User Interface",
       items: [
         {
           name: "Banners",
@@ -39,14 +38,15 @@ function Sidebar({ user, onClose, ...rest }) {
             { name: "Add Banner", path: "ui/banners/add" },
             { name: "Banner List", path: "ui/banners/details" },
           ],
-     }]},
+        },
+      ],
+    },
     {
       title: "Management",
       items: [
         {
           name: "Products",
           icon: ShoppingBag,
-          path: "",
           subMenu: [
             { name: "Add Product", path: "products/add" },
             { name: "Product List", path: "products/details" },
@@ -56,45 +56,17 @@ function Sidebar({ user, onClose, ...rest }) {
         {
           name: "Orders",
           icon: ClipboardList,
-          path: "",
           subMenu: [
             { name: "All Orders", path: "orders/all" },
             { name: "Order Detail", path: "orders/details" },
-            { name: "Completed Orders", path: "orders/completed" },
+            { name: "Tracking", path: "orders/tracking" },
           ],
         },
         {
           name: "Users",
-          icon: User,
-          path: "",
+          icon: Users,
           subMenu: [
             { name: "User List", path: "Users/Userlist" },
-            { name: "Order Detail", path: "users/details" },
-            { name: "Completed Orders", path: "users/completed" },
-          ],
-        },
-        {
-          name: "Customers",
-          icon: Users,
-          path: "/customers",
-          subMenu: [
-            { name: "All Customers", path: "/customers/all" },
-            { name: "VIP Customers", path: "/customers/vip" },
-          ],
-        },
-      ],
-    },
-    {
-      title: "Analytics",
-      items: [
-        {
-          name: "Analytics",
-          icon: BarChart3,
-          path: "/analytics",
-          subMenu: [
-            { name: "Sales Overview", path: "/analytics/sales" },
-            { name: "Customer Insights", path: "/analytics/customers" },
-            { name: "Performance Metrics", path: "/analytics/performance" },
           ],
         },
       ],
@@ -105,18 +77,15 @@ function Sidebar({ user, onClose, ...rest }) {
         {
           name: "Settings",
           icon: Settings,
-          path: "/settings",
           subMenu: [
-            { name: "Profile Settings", path: "/settings/profile" },
-            { name: "Security", path: "/settings/security" },
-            { name: "Notifications", path: "/settings/notifications" },
+            { name: "Profile", path: "settings/profile" },
+            { name: "Security", path: "settings/security" },
           ],
         },
       ],
     },
   ];
 
-  // Moderator Menu
   const moderatorMenuSections = [
     {
       title: "Main",
@@ -128,155 +97,123 @@ function Sidebar({ user, onClose, ...rest }) {
         {
           name: "Products",
           icon: ShoppingBag,
-          path: "",
           subMenu: [
             { name: "Add Product", path: "products/add" },
             { name: "Product List", path: "products/details" },
-            { name: "Categories", path: "products/categories" },
           ],
         },
-        {
-          title:"User Interface",
-          items: [
-            {
-              name: "Banners",
-              icon: Gift,
-              subMenu: [
-                { name: "Add Banner", path: "ui/banners/add" },
-                { name: "Banner List", path: "ui/banners/details" },
-              ],
-         }]},
-     
       ],
-
-
     },
-    
   ];
 
-
-  const menuSections =
-  user.role === "admin"
-    ? adminMenuSections
-    : user.role === "moderator"
-    ? moderatorMenuSections
-    : null; 
-
+  const menuSections = user?.role === "admin" ? adminMenuSections : moderatorMenuSections;
   const [openMenus, setOpenMenus] = useState({});
 
-  const toggleMenu = (index) => {
+  const toggleMenu = (key) => {
     setOpenMenus((prev) => ({
       ...prev,
-      [index]: !prev[index],
+      [key]: !prev[key],
     }));
   };
 
   return (
     <Box
-      bg={useColorModeValue("white", "gray.800")}
-      w={{ base: "full", md: 60 }}
-      h="full"
+      className="glass border-r border-white/5 h-full w-full md:w-64"
       pos="fixed"
       {...rest}
     >
-      <Box p={6}>
-        <Flex align="center" gap={2} mb={8}>
+      <Box p={6} className="h-full flex flex-col">
+        <Flex align="center" gap={3} mb={10} px={2}>
           <Box
-            w={8}
-            h={8}
-            bg="blue.600"
-            rounded="lg"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20"
           >
-            <Text color="white" fontWeight="bold">
-              S
-            </Text>
+            <Text color="white" fontWeight="900" fontSize="xl">S</Text>
           </Box>
-          <Link to="/" fontSize="xl" fontWeight="bold">
-            quadpark
-          </Link>
+          <div>
+            <Text className="text-white font-bold text-xl leading-none">Squadpark</Text>
+            <Text className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mt-1">Admin Panel</Text>
+          </div>
         </Flex>
 
-        <nav>
-          {menuSections.map((section, sectionIndex) => (
-            <Box key={section.title} mb={6}>
-              {/* Section Title */}
-              <Text fontSize="xs" color="gray.400" fontWeight="semibold" mb={3}>
+        <Box className="flex-1 overflow-y-auto custom-scrollbar px-2">
+          {menuSections.map((section, sectionIdx) => (
+            <Box key={section.title} mb={8}>
+              <Text className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-4 ml-2">
                 {section.title}
               </Text>
-              {section.items.map((item, index) => (
-                <Box key={item.name} mb={4}>
-                  <Flex
-                    align="center"
-                    gap={3}
-                    p={2}
-                    rounded="lg"
-                    fontSize="sm"
-                    cursor={item.subMenu ? "pointer" : "default"}
-                    _hover={{
-                      bg: item.subMenu ? "gray.50" : "blue.50",
-                      color: item.subMenu ? "gray.600" : "blue.600",
-                    }}
-                    onClick={() =>
-                     item.subMenu && toggleMenu(`${sectionIndex}-${index}`)
-                    }
-                    aria-expanded={
-                      openMenus[`${sectionIndex}-${index}`] ? "true" : "false"
-                    }
-                  >
-                    <item.icon size={18} />
-                    <Link to={item.path}>{item.name}</Link>
-                    {item.subMenu && (
-                      <motion.div
-                        animate={{
-                          rotate: openMenus[`${sectionIndex}-${index}`]
-                            ? 90
-                            : 0,
-                        }}
-                        className="ml-auto transform"
-                      >
-                        <ChevronRightIcon />
-                      </motion.div>
-                    )}
-                  </Flex>
-
-                  {/* Submenu Items */}
-                  {item.subMenu  && (
-                    <Collapse
-                      in={openMenus[`${sectionIndex}-${index}`]}
-                      unmountOnExit
-                    >
-                      <VStack pl={6} mt={2} spacing={1} align="stretch">
-                        {item.subMenu.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            to={subItem.path}
-                            style={{
-                              display: "block",
-                              padding: "8px 12px",
-                              fontSize: "14px",
-                              color: "#4A5568",
-                              borderRadius: "4px",
-                              textDecoration: "none",
-                            }}
-                            className="hover:bg-blue-50 hover:text-blue-600"
+              <div className="space-y-1">
+                {section.items.map((item, itemIdx) => {
+                  const menuKey = `${sectionIdx}-${itemIdx}`;
+                  const isOpen = openMenus[menuKey];
+                  
+                  return (
+                    <Box key={item.name}>
+                      {item.subMenu ? (
+                        <button
+                          onClick={() => toggleMenu(menuKey)}
+                          className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 group ${
+                            isOpen ? "bg-white/5 text-white" : "text-gray-400 hover:bg-white/5 hover:text-white"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <item.icon size={20} className={isOpen ? "text-primary" : "group-hover:text-primary transition-colors"} />
+                            <span className="text-sm font-medium">{item.name}</span>
+                          </div>
+                          <motion.div
+                            animate={{ rotate: isOpen ? 90 : 0 }}
+                            transition={{ duration: 0.2 }}
                           >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </VStack>
-                    </Collapse>
-                  )}
-                </Box>
-              ))}
+                            <ChevronRightIcon />
+                          </motion.div>
+                        </button>
+                      ) : (
+                        <Link
+                          to={item.path}
+                          onClick={onClose}
+                          className="flex items-center gap-3 p-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all group"
+                        >
+                          <item.icon size={20} className="group-hover:text-primary transition-colors" />
+                          <span className="text-sm font-medium">{item.name}</span>
+                        </Link>
+                      )}
+
+                      <Collapse in={isOpen} animateOpacity>
+                        <div className="mt-1 ml-4 space-y-1 border-l border-white/5 pl-4 py-1">
+                          {item.subMenu?.map((sub) => (
+                            <Link
+                              key={sub.name}
+                              to={sub.path}
+                              onClick={onClose}
+                              className="block p-2 text-sm text-gray-500 hover:text-primary hover:translate-x-1 transition-all duration-200"
+                            >
+                              {sub.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </Collapse>
+                    </Box>
+                  );
+                })}
+              </div>
             </Box>
           ))}
-        </nav>
+        </Box>
+
+        <Box className="mt-auto pt-6 border-t border-white/5 px-2">
+           <div className="glass !bg-white/5 p-4 rounded-2xl flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-primary/20">
+                <img src={user?.photoURL} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-white truncate">{user?.name}</p>
+                <p className="text-[10px] text-primary font-bold uppercase">{user?.role}</p>
+              </div>
+           </div>
+        </Box>
       </Box>
     </Box>
   );
 }
+
 
 export default Sidebar;

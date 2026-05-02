@@ -1,49 +1,52 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import SignUp from "../../../Pages/singup/SingUp";
-import Home from "../../../Pages/Home/Home";
-import Login from "../../../Pages/Login/Login";
 import MainLayout from "../../../layouts/MainLayout";
-import { VerificationEmailPage } from "../../Authentication/VerificationEmailPage";
-import ErrorPage from "../../ErrorPage/ErrorPage";
-import DashboardOverview from "../../../Pages/Dashboard/AdminDashboard/DashboardOverview";
-import Payments from "../../../Pages/Dashboard/AdminDashboard/Payments/Payments";
-
-import Settings from "../../../Pages/Dashboard/AdminDashboard/Settings/Settings";
-import AddProduct from "../../../Pages/Dashboard/AdminDashboard/Product/AddProduct";
-import ProductDetails from "../../../Pages/Dashboard/AdminDashboard/Product/ProductDetails";
-import ProductCategoris from "../../../Pages/Dashboard/AdminDashboard/Product/ProductCategoris";
-import Products from "../../../Pages/Dashboard/AdminDashboard/Product/Products";
-import Transactions from "../../../Pages/Dashboard/AdminDashboard/Payments/Transactions";
-import Refunds from "../../../Pages/Dashboard/AdminDashboard/Payments/Refunds";
-import PaymentMethods from "../../../Pages/Dashboard/AdminDashboard/Payments/PaymentMethods";
-import ProfileSettings from "../../../Pages/Dashboard/AdminDashboard/Settings/ProfileSettings";
-import SecuritySettings from "../../../Pages/Dashboard/AdminDashboard/Settings/SecuritySettings";
-import NotificationSettings from "../../../Pages/Dashboard/AdminDashboard/Settings/NotificationSettings";
-import AdminLayout from "../../../layouts/AdminLayout";
-import Orders from "../../../Pages/Dashboard/AdminDashboard/Orders/Orders";
-import AllOrders from "../../../Pages/Dashboard/AdminDashboard/Orders/AllOrders";
-import OrderDetails from "../../../Pages/Dashboard/AdminDashboard/Orders/OrderDetails";
-import OrderTracking from "../../../Pages/Dashboard/AdminDashboard/Orders/OrderTracking";
-import ProductDetailsCard from "../../product/ProductDetailsCard";
-import ProductHighlightCard from "../../product/ProductHighlightCard";
-import User from "../../../Pages/Dashboard/AdminDashboard/users/User";
-import Alluser from "../../../Pages/Dashboard/AdminDashboard/users/Alluser";
-import Cart from "../../Cart/Cart";
-import Favorites from "../../Favorites/Favorites";
-import Profile from "../../../Pages/Dashboard/UserDashboard/Profile";
 import ProtectedRoute from "../protectRoute";
-import Interface from "../../../Pages/Dashboard/AdminDashboard/Ui/Interface";
-import AddBanner from "../../../Pages/Dashboard/AdminDashboard/Ui/Banner/AddBanner";
-import BannerList from "../../../Pages/Dashboard/AdminDashboard/Ui/Banner/BannerList";
-import HelpCenter from "../../../Pages/Customer-Support/Helpcenter";
-import ShippingInformation from "../../../Pages/Customer-Support/ShippingInformation";
-import ReturnPolicy from "../../../Pages/Customer-Support/ReturnPolicy";
-import CustomerSupport from "../../../Pages/Customer-Support/CustomerSupport";
-import ContactUs from "../../../Pages/QuickLinks/AboutUs";
-import TermsCondition from "../../../Pages/QuickLinks/TermsCondition";
-import FAQ from "../../../Pages/QuickLinks/FAQ";
-import CheckOuts from "../../Cart/CheckOuts";
+import AdminLayout from "../../../layouts/AdminLayout";
+import ErrorPage from "../../ErrorPage/ErrorPage";
 
+// Lazy-loaded components
+const Home = lazy(() => import("../../../Pages/Home/Home"));
+const Login = lazy(() => import("../../../Pages/Login/Login"));
+const SignUp = lazy(() => import("../../../Pages/singup/SingUp"));
+const VerificationEmailPage = lazy(() => import("../../Authentication/VerificationEmailPage").then(module => ({ default: module.VerificationEmailPage })));
+const DashboardOverview = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/DashboardOverview"));
+const Payments = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Payments/Payments"));
+const Settings = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Settings/Settings"));
+const AddProduct = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Product/AddProduct"));
+const ProductDetails = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Product/ProductDetails"));
+const ProductCategoris = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Product/ProductCategoris"));
+const Products = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Product/Products"));
+const Transactions = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Payments/Transactions"));
+const Refunds = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Payments/Refunds"));
+const PaymentMethods = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Payments/PaymentMethods"));
+const ProfileSettings = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Settings/ProfileSettings"));
+const SecuritySettings = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Settings/SecuritySettings"));
+const NotificationSettings = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Settings/NotificationSettings"));
+const Orders = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Orders/Orders"));
+const AllOrders = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Orders/AllOrders"));
+const OrderDetails = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Orders/OrderDetails"));
+const OrderTracking = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Orders/OrderTracking"));
+const ProductDetailsCard = lazy(() => import("../../product/ProductDetailsCard"));
+const ProductHighlightCard = lazy(() => import("../../product/ProductHighlightCard"));
+const User = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/users/User"));
+const Alluser = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/users/Alluser"));
+const Cart = lazy(() => import("../../Cart/Cart"));
+const Favorites = lazy(() => import("../../Favorites/Favorites"));
+const Profile = lazy(() => import("../../../Pages/Dashboard/UserDashboard/Profile"));
+const Interface = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Ui/Interface"));
+const AddBanner = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Ui/Banner/AddBanner"));
+const BannerList = lazy(() => import("../../../Pages/Dashboard/AdminDashboard/Ui/Banner/BannerList"));
+const HelpCenter = lazy(() => import("../../../Pages/Customer-Support/Helpcenter"));
+const ShippingInformation = lazy(() => import("../../../Pages/Customer-Support/ShippingInformation"));
+const ReturnPolicy = lazy(() => import("../../../Pages/Customer-Support/ReturnPolicy"));
+const CustomerSupport = lazy(() => import("../../../Pages/Customer-Support/CustomerSupport"));
+const ContactUs = lazy(() => import("../../../Pages/QuickLinks/AboutUs"));
+const TermsCondition = lazy(() => import("../../../Pages/QuickLinks/TermsCondition"));
+const FAQ = lazy(() => import("../../../Pages/QuickLinks/FAQ"));
+const CheckOuts = lazy(() => import("../../Cart/CheckOuts"));
+
+const API_URL = import.meta.env.VITE_API_URL || "https://ashope-backend.onrender.com";
 
 // Define routes
 export const router = createBrowserRouter([
@@ -56,10 +59,6 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       }, 
-      // {
-      //   path: "/products/collection/:category/:subcategory",
-      //   element: <ProductHighlightCard />,
-      // },      
       {
         path: "/products/collection/:category/:subcategory/:nestedSubcategory?",
         element: <ProductHighlightCard />,
@@ -72,7 +71,7 @@ export const router = createBrowserRouter([
         path: "/products/productdetails/:id", 
         element: <ProductDetailsCard />,
         loader: ({ params }) =>
-          fetch(`https://ashope-backend.onrender.com/api/products/productdetails/${params?.id}`),
+          fetch(`${API_URL}/api/products/productdetails/${params?.id}`),
     
       },
       {
@@ -83,8 +82,6 @@ export const router = createBrowserRouter([
        path:"/Cart",
        element:<Cart/>
       },
-
-
       {
         path:"/contact-us",
         element:<ContactUs/>
@@ -117,7 +114,6 @@ export const router = createBrowserRouter([
         path:"/checkout",
         element:<CheckOuts/>
        },
-     
       {
         path:"/profile",
         element:<Profile/>
@@ -126,7 +122,6 @@ export const router = createBrowserRouter([
         path: "signin",
         element: <Login />,
       },
-      
       {
         path: "signup",
         element: <SignUp />,
@@ -177,29 +172,11 @@ export const router = createBrowserRouter([
         path: "Orders",
         element: <Orders />,
         children: [
-          { path: "all", element: <AllOrders /> }, // Fixed "OverviewSales"
+          { path: "all", element: <AllOrders /> },
           { path: "details", element: <OrderDetails /> },
           { path: "tracking", element: <OrderTracking /> },
         ],
       },
-      // {
-      //   path: "analytics",
-      //   element: <Analytics />,
-      //   children: [
-      //     { path: "sales", element: <OverviewSales /> }, // Fixed "OverviewSales"
-      //     { path: "customers", element: <CustomerInsights /> },
-      //     { path: "performance", element: <PerformanceMetrics /> },
-      //   ],
-      // },
-
-      // {
-      //   path: "coupons",
-      //   element: <Coupons />,
-      //   children: [
-      //     { path: "create", element: <CreateCoupon /> },
-      //     { path: "manage", element: <ManageCoupons /> },
-      //   ],
-      // },
       {
         path: "payments",
         element: <Payments />,
