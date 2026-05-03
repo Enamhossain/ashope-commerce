@@ -85,7 +85,7 @@ function Navbar() {
   return (
     <>
       {/* Top Header Bar */}
-      <Box className="bg-[#020617] border-b border-white/5 py-2.5 px-4 lg:px-20">
+      <Box className="bg-black border-b border-white/5 py-2.5 px-4 lg:px-20">
         <Flex align="center" justify="space-between" maxW="1400px" mx="auto">
           <Flex gap={6} align="center" className="hidden md:flex">
             <Text className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
@@ -190,7 +190,7 @@ function Navbar() {
               <Link to="/favorites" className="relative group p-2 rounded-xl hover:bg-white/5 transition-all">
                 <Heart className="text-gray-400 group-hover:text-secondary transition-colors" size={22} />
                 {favoriteProduct?.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-secondary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-[#020617]">
+                  <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-black">
                     {favoriteProduct.length}
                   </span>
                 )}
@@ -199,7 +199,7 @@ function Navbar() {
               <Link to="/cart" className="relative group p-2 rounded-xl hover:bg-white/5 transition-all">
                 <ShoppingCart className="text-gray-400 group-hover:text-primary transition-colors" size={22} />
                 {cartProduct?.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-[#020617]">
+                  <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-black">
                     {cartProduct.length}
                   </span>
                 )}
@@ -233,8 +233,8 @@ function Navbar() {
                           <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
                         </button>
                       </PopoverTrigger>
-                      <PopoverContent className="glass !bg-[#020617]/95 border-white/10 rounded-[2rem] shadow-2xl p-10 outline-none" width="1000px">
-                        <PopoverArrow bg="#020617" />
+                      <PopoverContent className="glass !bg-black/95 border-white/10 rounded-[2rem] shadow-2xl p-10 outline-none" width="1000px">
+                        <PopoverArrow bg="black" />
                         <PopoverBody p={0}>
                           <Grid templateColumns="repeat(4, 1fr)" gap={12}>
                             {option.subOptions.map((sub, i) => (
@@ -270,7 +270,7 @@ function Navbar() {
       {/* Mobile Menu Drawer (Already handled in legacy code, just ensuring it matches theme) */}
       <Drawer placement="left" onClose={onClose} isOpen={isOpen} size="xs">
         <DrawerOverlay backdropFilter="blur(12px)" />
-        <DrawerContent className="!bg-[#020617] border-r border-white/5">
+        <DrawerContent className="!bg-black border-r border-white/5">
           {/* ... mobile menu content remains similar but follows the new colors ... */}
         </DrawerContent>
       </Drawer>

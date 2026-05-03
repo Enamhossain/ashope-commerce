@@ -6,7 +6,7 @@ const MotionText = motion(Text);
 
 const Footer = () => {
   return (
-    <Box bgGradient="linear(to-r, gray.900, gray.800)" color="gray.300" py={12} px={6} fontFamily="Inter, sans-serif">
+    <Box bg="black" borderTop="1px border-white/5" color="gray.300" py={12} px={6} fontFamily="Inter, sans-serif">
       <Flex direction={{ base: "column", md: "row" }} justify="space-between" align="flex-start" maxW="1200px" mx="auto">
         
         {/* Brand Description */}
@@ -27,7 +27,7 @@ const Footer = () => {
           <Heading size="sm" mb={4} color="white" textTransform="uppercase">Quick Links</Heading>
           <Stack spacing={3}>
             {["About Us", "Products", "Contact Us", "FAQ", "Terms & Conditions"].map((item, idx) => (
-              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} _hover={{ color: "yellow.400", transition: "0.3s" }}>
+              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} _hover={{ color: "orange.500", transition: "0.3s" }}>
                 {item}
               </Link>
             ))}
@@ -39,7 +39,7 @@ const Footer = () => {
           <Heading size="sm" mb={4} color="white" textTransform="uppercase">Customer Support</Heading>
           <Stack spacing={3}>
             {["Return Policy", "Shipping Information", "Help Center"].map((item, idx) => (
-              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} _hover={{ color: "yellow.400", transition: "0.3s" }}>
+              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} _hover={{ color: "orange.500", transition: "0.3s" }}>
                 {item}
               </Link>
             ))}
@@ -53,8 +53,8 @@ const Footer = () => {
           <Flex>
             <Input placeholder="Your Email" bg="gray.800" borderColor="gray.700" _placeholder={{ color: "gray.300" }} focusBorderColor="yellow.400" mr={2} color="white" px={4} py={3} borderRadius="md" />
             <Button 
-              bg="red.600" 
-              _hover={{ bg: "red.800", shadow: "0px 0px 12px rgba(255, 0, 0, 0.8)" }} 
+              bg="orange.500" 
+              _hover={{ bg: "orange.600", shadow: "0px 0px 12px rgba(255, 77, 0, 0.4)" }} 
               color="white" 
               px={6} py={3} 
               borderRadius="md" 

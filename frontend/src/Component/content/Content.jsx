@@ -9,7 +9,7 @@ const Content = () => {
       id: 1,
       name: "Men's Collection",
       tag: "Essentials",
-      image: "https://images.unsplash.com/photo-1604695573706-53170668f6a6?auto=format&fit=crop&q=80&w=800",
+      image: "https://images.unsplash.com/photo-1604695573706-53170668f6a6?auto=format&fit=crop&q=80&w=600",
       link: "/products/collection/bestsellers/men's wear",
     },
     {
@@ -44,9 +44,11 @@ const Content = () => {
               <img 
                 src={category.image}
                 alt={category.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
               
               <div className="absolute inset-0 p-10 flex flex-col justify-end">
                 <Text className="text-primary font-bold text-[10px] uppercase tracking-[0.3em] mb-3">{category.tag}</Text>

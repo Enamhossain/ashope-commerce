@@ -65,7 +65,7 @@ function Header() {
   const currentSlider = sliders[currentIndex] || {
     title: "Elevate Your Identity",
     subtitle: "Explore Feelby's Exclusive Fashion – Where Comfort Meets Creativity.",
-    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1920"
   };
 
   return (
@@ -96,14 +96,14 @@ function Header() {
         <Box 
           position="absolute" 
           inset="0" 
-          bgGradient="linear(to-r, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%)" 
+          bgGradient="linear(to-r, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%)" 
           zIndex="1" 
         />
 
         <Box 
           position="absolute" 
           inset="0" 
-          bgGradient="linear(to-t, rgba(15, 23, 42, 0.8) 0%, transparent 40%)" 
+          bgGradient="linear(to-t, rgba(0, 0, 0, 0.8) 0%, transparent 40%)" 
           zIndex="1" 
         />
 
@@ -148,12 +148,12 @@ function Header() {
 
               <Flex gap="5">
                 <Link to="/products">
-                  <button className="flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-xl hover:bg-indigo-600 transition-all shadow-2xl shadow-primary/30 group">
+                  <button className="flex items-center gap-3 px-10 py-4 bg-primary text-white font-bold rounded-xl hover:bg-orange-600 transition-all shadow-2xl shadow-primary/30 group">
                     <ShoppingBag size={20} className="group-hover:rotate-12 transition-transform" />
                     Shop Collection
                   </button>
                 </Link>
-                <button className="flex items-center gap-3 px-10 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-all group">
+                <button className="flex items-center gap-3 px-10 py-4 glass text-white font-bold rounded-xl hover:bg-white/10 transition-all group border border-white/20">
                    Learn More
                    <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -196,11 +196,11 @@ function Header() {
               alt="Offer"
               width="100%"
             />
-            <Box className="p-8 text-center bg-gradient-to-t from-slate-900 to-transparent absolute bottom-0 w-full pt-20">
+            <Box className="p-8 text-center bg-gradient-to-t from-black to-transparent absolute bottom-0 w-full pt-20">
                <Text className="text-primary font-bold tracking-widest uppercase text-xs mb-2">Exclusive Offer</Text>
-               <Heading className="text-white text-3xl mb-4">Summer Sale is Live!</Heading>
+               <Heading className="text-white text-3xl mb-4 font-black">Summer Sale is Live!</Heading>
                <Button 
-                className="!bg-primary !text-white !rounded-xl !px-8 !py-6 !font-bold hover:!bg-indigo-600 !shadow-xl !shadow-primary/20"
+                className="!bg-primary !text-white !rounded-xl !px-8 !py-6 !font-bold hover:!bg-orange-600 !shadow-xl !shadow-primary/20"
                 onClick={onClose}
                >
                  Claim My Discount
