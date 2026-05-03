@@ -30,6 +30,7 @@ import {
   useDisclosure,
   useMediaQuery,
   useToast,
+  VStack,
 } from "@chakra-ui/react";
 import { FaFacebook, FaPinterest, FaInstagram } from "react-icons/fa";
 
@@ -119,7 +120,7 @@ function Navbar() {
       </Box>
 
       {/* Main Navbar */}
-      <nav className="glass sticky top-0 z-50 border-b border-white/5 px-4 lg:px-20 backdrop-blur-xl">
+      <nav className="bg-black sticky top-0 z-50 border-b border-white/10 px-4 lg:px-20 backdrop-blur-xl">
         <Flex height="20" alignItems="center" justifyContent="space-between" maxW="1400px" mx="auto">
           {/* Menu & Search Toggle (Mobile) */}
           <Flex alignItems="center" gap="4">
@@ -129,7 +130,7 @@ function Navbar() {
               </button>
             )}
             
-            <Heading as="div" size="lg" className="text-gradient font-black tracking-tighter">
+            <Heading as="div" size="lg" className="text-primary font-black tracking-tighter">
               <Link to="/">SQUADPARK</Link>
             </Heading>
           </Flex>
@@ -142,7 +143,7 @@ function Navbar() {
                 <input
                   type="text"
                   placeholder="What are you looking for?"
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-14 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-sm text-white placeholder:text-gray-500"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 pl-14 pr-12 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/50 transition-all text-sm text-white placeholder:text-gray-500 shadow-inner"
                   onChange={(e) => setSearchText(e.target.value)}
                   value={searchText}
                 />
@@ -187,8 +188,8 @@ function Navbar() {
             </div>
             
             <HStack spacing={6}>
-              <Link to="/favorites" className="relative group p-2 rounded-xl hover:bg-white/5 transition-all">
-                <Heart className="text-gray-400 group-hover:text-secondary transition-colors" size={22} />
+              <Link to="/favorites" className="relative group p-2 rounded-xl hover:bg-white/10 transition-all">
+                <Heart className="text-white group-hover:text-primary transition-colors" size={22} />
                 {favoriteProduct?.length > 0 && (
                   <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-black">
                     {favoriteProduct.length}
@@ -196,8 +197,8 @@ function Navbar() {
                 )}
               </Link>
 
-              <Link to="/cart" className="relative group p-2 rounded-xl hover:bg-white/5 transition-all">
-                <ShoppingCart className="text-gray-400 group-hover:text-primary transition-colors" size={22} />
+              <Link to="/cart" className="relative group p-2 rounded-xl hover:bg-white/10 transition-all">
+                <ShoppingCart className="text-white group-hover:text-primary transition-colors" size={22} />
                 {cartProduct?.length > 0 && (
                   <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center border-2 border-black">
                     {cartProduct.length}
@@ -219,16 +220,16 @@ function Navbar() {
                   {!option.subOptions ? (
                     <Link
                       to={`/products/collection/${option.label.toLowerCase()}`}
-                      className="text-[11px] font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2 group"
+                      className="text-[11px] font-bold text-gray-400 hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 group"
                     >
-                      <span className="text-gray-600 group-hover:text-primary transition-colors">{option.icon}</span>
+                      <span className="text-gray-500 group-hover:text-primary transition-colors group-hover:scale-110">{option.icon}</span>
                       {option.label}
                     </Link>
                   ) : (
                     <Popover trigger="hover" placement="bottom" gutter={20}>
                       <PopoverTrigger>
-                        <button className="text-[11px] font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-2 outline-none group">
-                          <span className="text-gray-600 group-hover:text-primary transition-colors">{option.icon}</span>
+                        <button className="text-[11px] font-bold text-gray-400 hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 outline-none group">
+                          <span className="text-gray-500 group-hover:text-primary transition-colors group-hover:scale-110">{option.icon}</span>
                           {option.label}
                           <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
                         </button>
@@ -270,8 +271,79 @@ function Navbar() {
       {/* Mobile Menu Drawer (Already handled in legacy code, just ensuring it matches theme) */}
       <Drawer placement="left" onClose={onClose} isOpen={isOpen} size="xs">
         <DrawerOverlay backdropFilter="blur(12px)" />
-        <DrawerContent className="!bg-black border-r border-white/5">
-          {/* ... mobile menu content remains similar but follows the new colors ... */}
+        <DrawerContent className="!bg-black border-r border-white/10">
+          <DrawerHeader className="border-b border-white/5 py-8">
+            <Flex align="center" justify="space-between">
+              <Heading size="md" className="text-primary font-black tracking-tighter">SQUADPARK</Heading>
+              <button onClick={onClose} className="p-2 text-gray-500 hover:text-white transition-colors">
+                <IoClose size={24} />
+              </button>
+            </Flex>
+          </DrawerHeader>
+
+          <DrawerBody className="py-8 px-4">
+            <VStack align="stretch" spacing={6}>
+              <Box>
+                <Text className="text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6 ml-4">
+                  Categories
+                </Text>
+                <Accordion allowToggle>
+                  {options.map((option, idx) => (
+                    <AccordionItem key={idx} border="none" mb={2}>
+                      <AccordionButton className="!py-4 !px-4 hover:!bg-white/5 !rounded-2xl transition-all group">
+                        <Flex flex="1" align="center" gap={4}>
+                          <span className="text-gray-500 group-hover:text-primary transition-colors">{option.icon}</span>
+                          <Text className="text-sm font-bold text-gray-300 group-hover:text-white uppercase tracking-widest transition-colors">
+                            {option.label}
+                          </Text>
+                        </Flex>
+                        {option.subOptions && <ChevronDown size={14} className="text-gray-500" />}
+                      </AccordionButton>
+                      
+                      {option.subOptions && (
+                        <AccordionPanel pb={4} pl={12}>
+                          <VStack align="stretch" spacing={4}>
+                            {option.subOptions.map((sub, i) => (
+                              <Box key={i}>
+                                <Text className="text-white text-xs font-bold mb-3 uppercase tracking-wider">{sub.label}</Text>
+                                <VStack align="stretch" spacing={2} pl={2}>
+                                  {sub.sub?.map((item, id) => (
+                                    <Link
+                                      key={id}
+                                      to={`/products/collection/${option.label.toLowerCase()}/${sub.label.toLowerCase()}/${item.label}`}
+                                      onClick={onClose}
+                                      className="text-gray-500 hover:text-primary text-sm transition-colors"
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  ))}
+                                </VStack>
+                              </Box>
+                            ))}
+                          </VStack>
+                        </AccordionPanel>
+                      )}
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </Box>
+
+              <Box className="pt-6 border-t border-white/5 px-4">
+                <Text className="text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+                  Account
+                </Text>
+                <Authentication handleLogout={handleLogout} isCheckingAuth={isCheckingAuth} user={user} isLoading={isLoading} />
+              </Box>
+            </VStack>
+          </DrawerBody>
+
+          <DrawerFooter className="border-t border-white/5 py-8 justify-center gap-6">
+             <HStack spacing={6} className="text-gray-500">
+               <a href="#"><FaFacebook size={20} /></a>
+               <a href="#"><FaInstagram size={20} /></a>
+               <a href="#"><FaPinterest size={20} /></a>
+             </HStack>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

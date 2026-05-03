@@ -31,15 +31,27 @@ const Authentication = ({handleLogout}) => {
         <>
           <Link to="/signin">
             <Button
-              variant="outline"
+              variant="solid"
+              bg="white/10"
+              color="white"
               leftIcon={<FaSignInAlt />}
-              colorScheme="gray.100"
+              _hover={{ bg: "white/20" }}
+              border="1px solid"
+              borderColor="white/20"
+              borderRadius="xl"
             >
               Log in
             </Button>
           </Link>
           <Link to="/signup">
-            <Button bg="primary" color="white" _hover={{ bg: "orange.600" }} leftIcon={<FaUserPlus />}>
+            <Button 
+              bg="primary" 
+              color="white" 
+              _hover={{ bg: "orange.600", transform: "translateY(-2px)" }} 
+              leftIcon={<FaUserPlus />}
+              borderRadius="xl"
+              transition="all 0.3s"
+            >
               Sign up
             </Button>
           </Link>
