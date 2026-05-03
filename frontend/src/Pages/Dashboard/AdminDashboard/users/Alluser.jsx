@@ -18,6 +18,7 @@ import {
   Select,
   useToast,
   Icon,
+  Text,
 } from "@chakra-ui/react";
 import { SearchIcon, EditIcon, DeleteIcon, ViewIcon, LockIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useAuthStore } from "../../../../store/authStore";

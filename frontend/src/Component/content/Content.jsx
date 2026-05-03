@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const Content = () => {
   const categories = [
