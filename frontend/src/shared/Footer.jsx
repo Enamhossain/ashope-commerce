@@ -16,10 +16,10 @@ const Footer = () => {
               SquadPark
             </span>
           </Heading>
-          <Text fontSize="sm" mb={4} color="gray.400">
+          <Text fontSize="sm" mb={4} color="white/60">
             Your go-to store for all your shopping needs. High quality, <br /> fast delivery, and customer satisfaction are our top priorities.
           </Text>
-          <Text fontSize="sm" color="gray.500">© 2024 SquadPark. All rights reserved.</Text>
+          <Text fontSize="sm" color="white/40">© 2024 SquadPark. All rights reserved.</Text>
         </MotionBox>
 
         {/* Quick Links */}
@@ -39,7 +39,7 @@ const Footer = () => {
           <Heading size="sm" mb={4} color="white" textTransform="uppercase">Customer Support</Heading>
           <Stack spacing={3}>
             {["Return Policy", "Shipping Information", "Help Center"].map((item, idx) => (
-              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} _hover={{ color: "orange.500", transition: "0.3s" }}>
+              <Link key={idx} href={`/${item.toLowerCase().replace(/ /g, "-")}`} color="white" _hover={{ color: "primary", transition: "0.3s" }}>
                 {item}
               </Link>
             ))}
@@ -53,12 +53,13 @@ const Footer = () => {
           <Flex>
             <Input placeholder="Your Email" bg="gray.800" borderColor="gray.700" _placeholder={{ color: "gray.300" }} focusBorderColor="yellow.400" mr={2} color="white" px={4} py={3} borderRadius="md" />
             <Button 
-              bg="orange.500" 
-              _hover={{ bg: "orange.600", shadow: "0px 0px 12px rgba(255, 77, 0, 0.4)" }} 
+              bg="primary" 
+              _hover={{ bg: "orange.600", shadow: "0px 0px 20px rgba(255, 77, 0, 0.4)" }} 
               color="white" 
-              px={6} py={3} 
-              borderRadius="md" 
+              px={8} py={3} 
+              borderRadius="xl" 
               transition="all 0.3s"
+              fontWeight="bold"
             >
               Subscribe
             </Button>
@@ -71,14 +72,14 @@ const Footer = () => {
 
       {/* Developer Credit */}
       <Flex justify="center">
-        <MotionText fontSize="sm" color="gray.500" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+        <MotionText fontSize="sm" color="white/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
           Developed by -{" "}
           <Link 
             href="https://webenamhossain.vercel.app/" 
-            color="gray.100" 
-            fontWeight="medium" 
+            color="white" 
+            fontWeight="bold" 
             isExternal 
-            _hover={{ textDecoration: "underline", color: "yellow.400", transition: "0.3s" }}
+            _hover={{ textDecoration: "none", color: "primary", transition: "0.3s" }}
           >
             Enam Hossain
           </Link>

@@ -89,32 +89,32 @@ function Navbar() {
       <Box className="bg-black border-b border-white/5 py-2.5 px-4 lg:px-20">
         <Flex align="center" justify="space-between" maxW="1400px" mx="auto">
           <Flex gap={6} align="center" className="hidden md:flex">
-            <Text className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+            <Text className="text-[10px] font-bold text-white hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-2 cursor-default">
               <span className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
               Support: squadparkclothing@gmail.com
             </Text>
-            <Text className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">+8801818-417242</Text>
+            <Text className="text-[10px] font-bold text-white hover:text-primary transition-colors uppercase tracking-widest cursor-default">+8801818-417242</Text>
           </Flex>
-          
+
           <Flex gap={6} align="center">
-             <HStack spacing={4} className="text-gray-400">
-               <a href="#" className="hover:text-primary transition-colors"><FaFacebook size={14} /></a>
-               <a href="#" className="hover:text-primary transition-colors"><FaInstagram size={14} /></a>
-               <a href="#" className="hover:text-primary transition-colors"><FaPinterest size={14} /></a>
-             </HStack>
-             <Box w="1px" h="12px" bg="white/10" />
-             <Select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                size="xs"
-                variant="unstyled"
-                width="60px"
-                className="!text-[10px] !font-bold !text-gray-400 !uppercase !tracking-widest cursor-pointer hover:!text-white"
-              >
-                <option value="en">EN</option>
-                <option value="bn">BN</option>
-                <option value="ar">AR</option>
-              </Select>
+            <HStack spacing={4} className="text-white">
+              <a href="#" className="hover:text-primary transition-colors"><FaFacebook size={14} /></a>
+              <a href="#" className="hover:text-primary transition-colors"><FaInstagram size={14} /></a>
+              <a href="#" className="hover:text-primary transition-colors"><FaPinterest size={14} /></a>
+            </HStack>
+            <Box w="1px" h="12px" bg="white/10" />
+            <Select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              size="xs"
+              variant="unstyled"
+              width="60px"
+              className="!text-[10px] !font-bold !text-white !uppercase !tracking-widest cursor-pointer hover:!text-primary transition-colors"
+            >
+              <option value="en">EN</option>
+              <option value="bn">BN</option>
+              <option value="ar">AR</option>
+            </Select>
           </Flex>
         </Flex>
       </Box>
@@ -129,8 +129,8 @@ function Navbar() {
                 <AlignLeft size={24} />
               </button>
             )}
-            
-            <Heading as="div" size="lg" className="text-primary font-black tracking-tighter">
+
+            <Heading as="div" size="lg" className="text-white  tracking-tighter">
               <Link to="/">SQUADPARK</Link>
             </Heading>
           </Flex>
@@ -186,7 +186,7 @@ function Navbar() {
             <div className="hidden md:block">
               <Authentication handleLogout={handleLogout} isCheckingAuth={isCheckingAuth} user={user} isLoading={isLoading} />
             </div>
-            
+
             <HStack spacing={6}>
               <Link to="/favorites" className="relative group p-2 rounded-xl hover:bg-white/10 transition-all">
                 <Heart className="text-white group-hover:text-primary transition-colors" size={22} />
@@ -205,7 +205,7 @@ function Navbar() {
                   </span>
                 )}
               </Link>
-              
+
               <MenuProfile isCheckingAuth={isCheckingAuth} handleLogout={handleLogout} user={user} />
             </HStack>
           </Flex>
@@ -220,7 +220,7 @@ function Navbar() {
                   {!option.subOptions ? (
                     <Link
                       to={`/products/collection/${option.label.toLowerCase()}`}
-                      className="text-[11px] font-bold text-gray-400 hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 group"
+                      className="text-[11px] font-bold text-white hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 group"
                     >
                       <span className="text-gray-500 group-hover:text-primary transition-colors group-hover:scale-110">{option.icon}</span>
                       {option.label}
@@ -228,7 +228,7 @@ function Navbar() {
                   ) : (
                     <Popover trigger="hover" placement="bottom" gutter={20}>
                       <PopoverTrigger>
-                        <button className="text-[11px] font-bold text-gray-400 hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 outline-none group">
+                        <button className="text-[11px] font-bold text-white hover:text-primary uppercase tracking-widest transition-all flex items-center gap-2 outline-none group">
                           <span className="text-gray-500 group-hover:text-primary transition-colors group-hover:scale-110">{option.icon}</span>
                           {option.label}
                           <ChevronDown size={12} className="group-hover:rotate-180 transition-transform duration-300" />
@@ -248,7 +248,7 @@ function Navbar() {
                                     <Link
                                       key={idx}
                                       to={`/products/collection/${option.label.toLowerCase()}/${sub.label.toLowerCase()}/${item.label}`}
-                                      className="text-sm text-gray-400 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center gap-2"
+                                      className="text-sm text-gray-300 hover:text-primary hover:translate-x-2 transition-all duration-300 flex items-center gap-2"
                                     >
                                       {item.label}
                                     </Link>
@@ -299,7 +299,7 @@ function Navbar() {
                         </Flex>
                         {option.subOptions && <ChevronDown size={14} className="text-gray-500" />}
                       </AccordionButton>
-                      
+
                       {option.subOptions && (
                         <AccordionPanel pb={4} pl={12}>
                           <VStack align="stretch" spacing={4}>
@@ -312,7 +312,7 @@ function Navbar() {
                                       key={id}
                                       to={`/products/collection/${option.label.toLowerCase()}/${sub.label.toLowerCase()}/${item.label}`}
                                       onClick={onClose}
-                                      className="text-gray-500 hover:text-primary text-sm transition-colors"
+                                      className="text-white hover:text-primary text-sm transition-colors"
                                     >
                                       {item.label}
                                     </Link>
@@ -338,11 +338,11 @@ function Navbar() {
           </DrawerBody>
 
           <DrawerFooter className="border-t border-white/5 py-8 justify-center gap-6">
-             <HStack spacing={6} className="text-gray-500">
-               <a href="#"><FaFacebook size={20} /></a>
-               <a href="#"><FaInstagram size={20} /></a>
-               <a href="#"><FaPinterest size={20} /></a>
-             </HStack>
+            <HStack spacing={6} className="text-white">
+              <a href="#" className="hover:text-primary transition-colors"><FaFacebook size={20} /></a>
+              <a href="#" className="hover:text-primary transition-colors"><FaInstagram size={20} /></a>
+              <a href="#" className="hover:text-primary transition-colors"><FaPinterest size={20} /></a>
+            </HStack>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
