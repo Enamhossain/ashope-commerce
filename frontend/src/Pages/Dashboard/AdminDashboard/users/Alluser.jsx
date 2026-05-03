@@ -118,7 +118,7 @@ const Alluser = () => {
                 </Td>
                 <Td className="!py-5 !px-8">
                   {user.role === "admin" ? (
-                    <span className="text-[10px] font-bold text-secondary bg-secondary/10 px-2.5 py-1 rounded-md uppercase border border-secondary/20">
+                    <span className="text-[10px] font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-md uppercase border border-primary/20">
                       Administrator
                     </span>
                   ) : (
@@ -147,7 +147,7 @@ const Alluser = () => {
                     </button>
                     <button 
                       onClick={() => handleDeleteUser(user._id)}
-                      className="p-2 glass !bg-white/5 text-gray-400 hover:!text-secondary rounded-lg transition-all"
+                      className="p-2 glass !bg-white/5 text-gray-400 hover:!text-primary rounded-lg transition-all"
                     >
                       <Trash2 size={16} />
                     </button>

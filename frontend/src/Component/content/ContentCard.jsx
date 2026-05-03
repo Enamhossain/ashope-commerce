@@ -89,7 +89,7 @@ export default function ContentCard() {
   }
 
   if (error || sliders.length === 0) {
-    return <Text color="red.500">{error || "No sliders available."}</Text>;
+    return <Text color="primary" textAlign="center" py={10}>{error || "No sliders available."}</Text>;
   }
 
   return (
@@ -138,7 +138,7 @@ export default function ContentCard() {
           </Button>
           <Button
             onClick={nextSlider}
-            className="w-8 h-8 bg-purple-300 rounded-full text-white"
+            className="w-8 h-8 !bg-primary rounded-full text-white hover:!bg-orange-600 transition-colors"
           >
             &gt;
           </Button>

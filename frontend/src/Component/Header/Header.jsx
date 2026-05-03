@@ -187,7 +187,7 @@ function Header() {
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="xl">
         <ModalOverlay backdropFilter="blur(12px)" bg="blackAlpha.700" />
         <ModalContent 
-          className="glass !bg-slate-900/90 border-white/10 rounded-[2rem] overflow-hidden shadow-2xl"
+          className="glass !bg-black/90 border-white/10 rounded-[2rem] overflow-hidden shadow-2xl"
         >
           <ModalCloseButton className="!text-white !bg-white/5 !rounded-full !m-4 hover:!bg-white/10" />
           <Box className="relative">

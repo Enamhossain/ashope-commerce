@@ -28,7 +28,7 @@ const MenuProfile = ({handleLogout}) => {
       <MenuButton
         as={Button}
         variant="ghost"
-        _hover={{ color: "red.400" }}
+        _hover={{ color: "primary" }}
         className="hidden md:block"
       >
         {user ? (
@@ -64,7 +64,7 @@ const MenuProfile = ({handleLogout}) => {
         <Link to="/settings">Settings</Link>
       </MenuItem>
       <MenuDivider />
-      <MenuItem onClick={handleLogout} color="red.500">
+      <MenuItem onClick={handleLogout} color="primary" fontWeight="bold">
         Logout
       </MenuItem>
     </>

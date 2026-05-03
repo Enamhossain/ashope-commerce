@@ -104,7 +104,7 @@ const ProductCard = memo(({ product }) => {
           overflow="hidden"
           mx="-0.5"
           shadow="sm"
-          _hover={{ shadow: "xl", border: "1px ", color: "red.500" }}
+          _hover={{ shadow: "xl", border: "1px ", borderColor: "primary" }}
           transition="all 0.3s ease-in-out"
           h={{ base: "auto", md: "400px" }}
           w={{ base: "85%", md: "100%" }}
@@ -140,7 +140,7 @@ const ProductCard = memo(({ product }) => {
                     fill={isFavorite ? "red" : "none"} // Use the isFavorite state
                   />
                 }
-                color={isFavorite ? "red.500" : "gray.500"} // Use the isFavorite state
+                color={isFavorite ? "primary" : "gray.500"} // Use the isFavorite state
                 onClick={toggleFavorite}
               />
               <Link to={`/products/productdetails/${product._id}`}>
@@ -170,6 +170,7 @@ const ProductCard = memo(({ product }) => {
                 bottom="16px"
                 left="30%"
                 onClick={handleAddToCart}
+                _hover={{ bg: "primary", color: "white" }}
               >
                 Add to Cart
               </Button>
@@ -205,7 +206,7 @@ const ProductCard = memo(({ product }) => {
                     >
                       <FormattedPrice amount={Number(product.price)} />
                     </Text>
-                    <Text color="red.500" fontSize="lg" fontWeight="bold">
+                    <Text color="primary" fontSize="lg" fontWeight="bold">
                       <FormattedPrice amount={discountPrice} />
                     </Text>
                   </>
@@ -236,7 +237,7 @@ const ProductCard = memo(({ product }) => {
                       borderColor="gray.300"
                       borderRadius="md"
                       cursor="pointer"
-                      _hover={{ bg: "blue.600", color: "white" }}
+                      _hover={{ bg: "primary", color: "white" }}
                     >
                       {sizeObj.size}{" "}
                       {sizeObj.quantity ? `- x${sizeObj.quantity}` : ""}

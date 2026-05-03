@@ -124,7 +124,7 @@ function SignUp() {
           <Text mb={2} textAlign="center" color="gray.600">Join our community and start shopping!</Text>
           <Text mb={8} textAlign="center" color="gray.600">
             Already a member?{' '}
-            <Link to="/signin" style={{ textDecoration: "underline", color: "blue" }}>
+            <Link to="/signin" style={{ textDecoration: "underline", color: "var(--primary)" }}>
               Sign In
             </Link>
           </Text>

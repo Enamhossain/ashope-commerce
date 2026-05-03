@@ -90,7 +90,7 @@ const Login = () => {
             Sign in or{" "}
             <Link
               to="/signup"
-              style={{ textDecoration: "underline", color: "red.400" }}
+              style={{ textDecoration: "underline", color: "var(--primary)" }}
             >
               create an account
             </Link>
@@ -110,7 +110,7 @@ const Login = () => {
                   },
                 })}
                 bg="gray.100"
-                _focus={{ bg: "white", borderColor: "pink.500" }}
+                _focus={{ bg: "white", borderColor: "primary" }}
                 _hover={{ bg: "gray.50" }}
               />
               {errors.email && (
@@ -131,7 +131,7 @@ const Login = () => {
                   },
                 })}
                 bg="gray.100"
-                _focus={{ bg: "white", borderColor: "pink.500" }}
+                _focus={{ bg: "white", borderColor: "primary" }}
                 _hover={{ bg: "gray.50" }}
               />
               {errors.password && (

@@ -252,7 +252,7 @@ console.log(products)
                     </Text>
 
                     {/* Discounted Price */}
-                    <Text color="red.500" fontSize="lg" fontWeight="bold">
+                    <Text color="primary" fontSize="2xl" fontWeight="bold">
                       <FormattedPrice
                         amount={(
                           Number(product.price) *
@@ -302,7 +302,7 @@ console.log(products)
                 <Text
                   key={sizeObj.size}
                   onClick={() => handleSizeSelect(sizeObj.size)}
-                  bg={selectedSize === sizeObj.size ? "black" : "white"}
+                  bg={selectedSize === sizeObj.size ? "primary" : "white"}
                   color={selectedSize === sizeObj.size ? "white" : "black"}
                   px={4}
                   py={1}

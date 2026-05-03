@@ -211,7 +211,7 @@ const FilterSidebar = () => {
         >
           <VStack align="flex-start" spacing={2}>
             {availableFilters.categories.map(category => (
-              <Radio key={category} value={category}>
+              <Radio key={category} value={category} colorScheme="orange">
                 {category}
               </Radio>
             ))}
@@ -238,7 +238,7 @@ const FilterSidebar = () => {
           >
             <VStack align="flex-start" spacing={2}>
               {getRelevantSubcategories().map(subcategory => (
-                <Radio key={subcategory} value={subcategory}>
+                <Radio key={subcategory} value={subcategory} colorScheme="orange">
                   {subcategory}
                 </Radio>
               ))}
@@ -260,7 +260,7 @@ const FilterSidebar = () => {
           >
             <VStack align="flex-start" spacing={2}>
               {getRelevantNestedSubcategories().map(nestedSubcategory => (
-                <Radio key={nestedSubcategory} value={nestedSubcategory}>
+                <Radio key={nestedSubcategory} value={nestedSubcategory} colorScheme="orange">
                   {nestedSubcategory}
                 </Radio>
               ))}
@@ -281,7 +281,10 @@ const FilterSidebar = () => {
               key={size}
               size="sm"
               variant={localFilters.size?.includes(size) ? "solid" : "outline"}
-              colorScheme={localFilters.size?.includes(size) ? "blue" : "gray"}
+              bg={localFilters.size?.includes(size) ? "primary" : "transparent"}
+              color={localFilters.size?.includes(size) ? "white" : "gray.400"}
+              borderColor={localFilters.size?.includes(size) ? "primary" : "white/10"}
+              _hover={{ bg: "primary", color: "white", borderColor: "primary" }}
               onClick={() => handleArrayFilterToggle(size, 'size')}
               minW="40px"
               mb={2}
@@ -304,6 +307,7 @@ const FilterSidebar = () => {
               key={fabric}
               isChecked={localFilters.fabrics?.includes(fabric)}
               onChange={() => handleArrayFilterToggle(fabric, 'fabrics')}
+              colorScheme="orange"
             >
               {fabric}
             </Checkbox>
@@ -323,7 +327,7 @@ const FilterSidebar = () => {
         >
           <VStack align="flex-start" spacing={2}>
             {availableFilters.fits.map(fit => (
-              <Radio key={fit} value={fit}>
+              <Radio key={fit} value={fit} colorScheme="orange">
                 {fit}
               </Radio>
             ))}
@@ -343,7 +347,7 @@ const FilterSidebar = () => {
         >
           <VStack align="flex-start" spacing={2}>
             {availableFilters.patterns.map(pattern => (
-              <Radio key={pattern} value={pattern}>
+              <Radio key={pattern} value={pattern} colorScheme="orange">
                 {pattern}
               </Radio>
             ))}
@@ -363,7 +367,10 @@ const FilterSidebar = () => {
               key={color}
               size="sm"
               variant={localFilters.colors?.includes(color) ? "solid" : "outline"}
-              colorScheme={localFilters.colors?.includes(color) ? "blue" : "gray"}
+              bg={localFilters.colors?.includes(color) ? "primary" : "transparent"}
+              color={localFilters.colors?.includes(color) ? "white" : "gray.400"}
+              borderColor={localFilters.colors?.includes(color) ? "primary" : "white/10"}
+              _hover={{ bg: "primary", color: "white", borderColor: "primary" }}
               onClick={() => handleArrayFilterToggle(color, 'colors')}
               mb={2}
             >
@@ -437,7 +444,9 @@ const FilterSidebar = () => {
       {/* Apply Filters Button */}
       <Box pt={4}>
         <Button 
-          colorScheme="blue" 
+          bg="primary"
+          color="white"
+          _hover={{ bg: "orange.600" }}
           width="full" 
           onClick={handleApplyFilters}
           isLoading={isLoading}
@@ -457,16 +466,20 @@ const FilterSidebar = () => {
         position="sticky" 
         top="0" 
         zIndex="10"
-        bg="white" 
+        bg="black" 
         p={3} 
         borderBottom="1px" 
-        borderColor="gray.200"
+        borderColor="white/10"
       >
         <Button 
           leftIcon={<FilterIcon size={18} />} 
           onClick={onToggle} 
-          variant="outline"
+          variant="solid"
+          bg="primary"
+          color="white"
           width="full"
+          borderRadius="xl"
+          _hover={{ bg: "orange.600" }}
         >
           Filters {totalActiveFilters > 0 && `(${totalActiveFilters})`}
         </Button>
@@ -480,10 +493,11 @@ const FilterSidebar = () => {
         left="0"
         w="100%"
         h="100vh"
-        bg="white"
+        bg="black"
         zIndex="modal"
         overflow="auto"
-        p={4}
+        p={6}
+        className="text-white"
       >
         <Flex justify="space-between" align="center" mb={4}>
           <Heading as="h2" size="lg">Filters</Heading>
@@ -502,12 +516,13 @@ const FilterSidebar = () => {
         as="aside"
         display={{ base: 'none', md: 'block' }}
         w="280px"
-        bg="white"
-        p={4}
+        bg="black"
+        p={6}
         borderRight="1px"
-        borderColor="gray.200"
+        borderColor="white/10"
         h="100%"
         overflow="auto"
+        className="custom-scrollbar"
       >
         {filterContent}
       </Box>

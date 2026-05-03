@@ -53,7 +53,7 @@ const Favorites = () => {
                   <Text
                     fontSize="xs"
                     fontWeight="bold"
-                    bg="blue.500"
+                    bg="primary"
                     color="white"
                     px={3}
                     py={1}
@@ -67,7 +67,7 @@ const Favorites = () => {
                     fontSize="lg"
                     fontWeight="semibold"
                     mt={3}
-                    _hover={{ textDecoration: "underline", color: "blue.600" }}
+                    _hover={{ textDecoration: "underline", color: "primary" }}
                   >
                     {product.productName}
                   </Text>
@@ -77,17 +77,18 @@ const Favorites = () => {
                   </Text>
 
                   <Flex align="center" justify="space-between" mt={4}>
-                    <Text fontSize="xl" fontWeight="bold" color="blue.600">
+                    <Text fontSize="xl" fontWeight="bold" color="primary">
                       ${product.price}
                     </Text>
 
                     <Button
                       size="sm"
-                      colorScheme="red"
+                      bg="black"
+                      color="white"
                       leftIcon={<Trash2 size={16} />}
                       onClick={() => removeFromFavorite(product._id)}
                       transition="0.3s"
-                      _hover={{ bg: "red.600" }}
+                      _hover={{ bg: "primary" }}
                     >
                       Remove
                     </Button>

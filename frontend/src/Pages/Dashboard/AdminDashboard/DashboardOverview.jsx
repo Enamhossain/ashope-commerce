@@ -149,8 +149,8 @@ const DashboardOverview = () => {
               options={{
                 ...chartOptions,
                 elements: {
-                  line: { borderColor: '#6366f1', borderWidth: 3, fill: true, backgroundColor: 'rgba(99, 102, 241, 0.1)' },
-                  point: { radius: 0, hoverRadius: 6, backgroundColor: '#6366f1' }
+                  line: { borderColor: '#ff4d00', borderWidth: 3, fill: true, backgroundColor: 'rgba(255, 77, 0, 0.1)' },
+                  point: { radius: 0, hoverRadius: 6, backgroundColor: '#ff4d00' }
                 }
               }} 
             />
@@ -197,7 +197,7 @@ const DashboardOverview = () => {
                   <td className="py-4 text-sm text-gray-300">{product.sales} units</td>
                   <td className="py-4 text-sm text-white font-bold">${product.revenue / product.sales}</td>
                   <td className="py-4">
-                    <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">In Stock</span>
+                    <span className="text-[10px] font-bold px-2 py-1 rounded-md bg-primary/10 text-primary border border-primary/20 uppercase tracking-wider">In Stock</span>
                   </td>
                 </tr>
               ))}

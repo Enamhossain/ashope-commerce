@@ -16,10 +16,13 @@ const Authentication = ({handleLogout}) => {
           </Text>
           <Button
             variant="outline"
-            colorScheme="red"
+            colorScheme="orange"
             leftIcon={<FaSignOutAlt />}
             onClick={handleLogout}
             isLoading={isLoading}
+            borderColor="primary"
+            color="primary"
+            _hover={{ bg: "primary", color: "white" }}
           >
             Logout
           </Button>
@@ -36,7 +39,7 @@ const Authentication = ({handleLogout}) => {
             </Button>
           </Link>
           <Link to="/signup">
-            <Button bg="red.500" color="white" _hover={{ bg: "gray.800" }} leftIcon={<FaUserPlus />}>
+            <Button bg="primary" color="white" _hover={{ bg: "orange.600" }} leftIcon={<FaUserPlus />}>
               Sign up
             </Button>
           </Link>

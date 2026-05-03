@@ -43,15 +43,14 @@ const BlogHighlights = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{
-          scale: 1.1,
-          bgGradient: "linear(to-r, pink.400, blue.400)",
+          scale: 1.05,
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         fontSize="5xl"
         fontWeight="semibold"
       >
-        <span className="text-red-500 uppercase">Discover</span>{" "}
-        <span className="text-gray-900 uppercase">Exclusive Deals</span>
+        <span className="text-primary uppercase">Discover</span>{" "}
+        <span className="text-black uppercase">Exclusive Deals</span>
       </MotionHeading>
       <Box py={26}>
         <ScrollElement
@@ -68,7 +67,7 @@ const BlogHighlights = () => {
                   </span>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-900 leading-tight">
                     Discover the beauty of{" "}
-                    <span className="text-pink-500 font-bold">
+                    <span className="text-primary font-bold">
                       Salwar Kameez
                     </span>
                   </h1>
@@ -80,7 +79,7 @@ const BlogHighlights = () => {
                     collection ensures you shine with elegance.
                   </p>
 
-                  <button className="inline-flex items-center px-6 py-3 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-300 text-sm md:text-base">
+                  <button className="inline-flex items-center px-8 py-3 border-2 border-black text-black hover:bg-black hover:text-white transition-all duration-300 text-sm md:text-base font-bold tracking-widest rounded-full">
                     VIEW MORE
                   </button>
                 </div>
@@ -378,7 +377,7 @@ export const CustomerTestimonials = () => {
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-red-500 hover:bg-gray-800 hover:font-bold text-white font-medium rounded-lg flex items-center gap-2 transition-all"
+                  className="px-6 py-3 bg-primary hover:bg-black text-white font-bold rounded-lg flex items-center gap-2 transition-all shadow-lg"
                 >
                   Subscribe
                   <Send size={18} />

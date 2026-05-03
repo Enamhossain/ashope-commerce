@@ -35,11 +35,14 @@ const SearchResultCard = ({ product, setSearchText }) => {
           position="absolute"
           top={2}
           right={2}
-          colorScheme={product?.stock > 0 ? "green" : "red"}
-          fontSize="sm"
+          bg={product?.stock > 0 ? "primary" : "gray.600"}
+          color="white"
+          fontSize="xs"
           px={3}
           py={1}
           borderRadius="full"
+          textTransform="uppercase"
+          letterSpacing="wider"
         >
           {product?.stock > 0 ? "In Stock" : "Out of Stock"}
         </Badge>
@@ -49,10 +52,10 @@ const SearchResultCard = ({ product, setSearchText }) => {
       <Flex direction="column" gap={3}>
         {/* Category & Subcategory */}
         <HStack spacing={2}>
-          <Badge colorScheme="blue" fontSize="xs" px={2} py={0.5}>
+          <Badge variant="outline" borderColor="primary" color="primary" fontSize="10px" px={2} py={0.5}>
             {product.category}
           </Badge>
-          <Badge colorScheme="purple" fontSize="xs" px={2} py={0.5}>
+          <Badge bg="black" color="white" fontSize="10px" px={2} py={0.5}>
             {product.nestedSubcategory}
           </Badge>
         </HStack>
@@ -65,7 +68,7 @@ const SearchResultCard = ({ product, setSearchText }) => {
         {/* Price & CTA */}
         <Flex justify="space-between" align="center">
           <Box>
-            <Text fontSize="lg" fontWeight="bold" color="blue.600">
+            <Text fontSize="lg" fontWeight="bold" color="primary">
             {product.discount && Number(product.discount) > 0 ? (
                   <>
                     {/* Original Price (Strikethrough) */}
@@ -106,10 +109,13 @@ const SearchResultCard = ({ product, setSearchText }) => {
         <Button
           width="full"
           size="md"
-          colorScheme="teal"
+          bg="black"
+          color="white"
+          _hover={{ bg: "primary", transform: "translateY(-2px)" }}
           onClick={() => setSearchText("")}
           rightIcon={<ShoppingCart size={18} />}
-          _hover={{ transform: "scale(1.05)" }}
+          transition="all 0.3s"
+          borderRadius="xl"
         >
           View Details
         </Button>

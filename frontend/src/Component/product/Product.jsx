@@ -67,8 +67,7 @@ function Product() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{
-          scale: 1.2,
-          bgGradient: "linear(to-r, teal.400, blue.400)",
+          scale: 1.05,
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         fontSize="4xl"
@@ -76,8 +75,8 @@ function Product() {
       >
         <UnderlinedText>
 
-        <span className="text-red-500 uppercase mt-2 ">Trending</span>{" "}
-        <span className="text-gray-900 uppercase mt-2">Product</span>
+        <span className="text-primary uppercase mt-2 ">Trending</span>{" "}
+        <span className="text-black uppercase mt-2">Product</span>
         </UnderlinedText>
 
       </MotionHeading>
@@ -108,8 +107,14 @@ function Product() {
           <Button
             key={index + 1}
             onClick={() => handlePageChange(index + 1)}
-            variant={currentPage === index + 1 ? "solid" : "outline"}
+            bg={currentPage === index + 1 ? "primary" : "transparent"}
+            color={currentPage === index + 1 ? "white" : "black"}
+            border="1px solid"
+            borderColor={currentPage === index + 1 ? "primary" : "gray.200"}
+            _hover={{ bg: "primary", color: "white" }}
             mx={1}
+            size="sm"
+            borderRadius="lg"
           >
             {index + 1}
           </Button>

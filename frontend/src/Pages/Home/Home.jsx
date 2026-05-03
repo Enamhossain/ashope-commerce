@@ -8,12 +8,15 @@ const Product = lazy(() => import("../../Component/product/Product"));
 const GalleryComponent = lazy(() => import("../../Component/Gallery/GalleryComponent"));
 const BlogHighlights = lazy(() => import("../../Component/Blog/Blog"));
 const ContentCard = lazy(() => import("../../Component/content/ContentCard"));
+const TrustBadges = lazy(() => import("../../Component/Common/TrustBadges"));
 
 // Tailwind Loader Component
 const Loader = () => (
-  <div className="flex items-center justify-center ">
-    <div className="relative w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-    <div className="absolute w-12 h-12 border-4 border-red-500 border-l-transparent rounded-full animate-spin-reverse"></div>
+  <div className="flex items-center justify-center min-h-screen bg-black">
+    <div className="relative w-16 h-16">
+      <div className="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <div className="absolute inset-2 border-4 border-white/20 border-b-transparent rounded-full animate-spin-reverse"></div>
+    </div>
   </div>
 );
 
@@ -56,13 +59,19 @@ function Home() {
       </Suspense>
 
       <Suspense fallback={null}>
-        <div className="">
+        <div className="py-12 md:py-20">
           <Product />
         </div>
       </Suspense>
 
       <Suspense fallback={null}>
-        <GalleryComponent />
+        <TrustBadges />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <div className="py-12 md:py-20">
+          <GalleryComponent />
+        </div>
       </Suspense>
 
       <Suspense fallback={null}>
