@@ -6,20 +6,18 @@ const MotionText = motion(Text);
 
 const Footer = () => {
   return (
-    <Box bg="black" borderTop="1px border-white/5" color="gray.300" py={12} px={6} fontFamily="Inter, sans-serif">
+    <Box bg="black" borderTop="1px solid" borderTopColor="whiteAlpha.100" color="gray.300" py={12} px={6} fontFamily="Inter, sans-serif">
       <Flex direction={{ base: "column", md: "row" }} justify="space-between" align="flex-start" maxW="1200px" mx="auto">
         
         {/* Brand Description */}
         <MotionBox mb={8} flex={1} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <Heading size="md" mb={4} fontWeight="bold" color="white" fontFamily="Poppins">
-            <span className="bg-clip-text text-transparent bg-gray-100">
+          <Heading size="md" mb={4} fontWeight="black" color="white" letterSpacing="-0.03em">
               SquadPark
-            </span>
           </Heading>
-          <Text fontSize="sm" mb={4} color="white/60">
+          <Text fontSize="sm" mb={4} color="whiteAlpha.600">
             Your go-to store for all your shopping needs. High quality, <br /> fast delivery, and customer satisfaction are our top priorities.
           </Text>
-          <Text fontSize="sm" color="white/40">© 2024 SquadPark. All rights reserved.</Text>
+          <Text fontSize="sm" color="whiteAlpha.400">© 2024 SquadPark. All rights reserved.</Text>
         </MotionBox>
 
         {/* Quick Links */}

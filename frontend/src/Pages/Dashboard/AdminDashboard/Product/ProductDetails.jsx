@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Search, Plus, Eye, Pencil, Trash2 } from "lucide-react";
 import { useProductStore } from "../../../../store/productStore";
 import {
@@ -25,6 +26,7 @@ import EditProductModal from "./EditModelProduct";
 const ProductDetails = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
   const [searchText, setSearchText] = useState("");
+  const [debouncedSearchText, setDebouncedSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const {
@@ -45,14 +47,25 @@ const ProductDetails = () => {
     fetchProducts({ limit: entriesPerPage });
   }, [entriesPerPage, fetchProducts]);
 
+  // Debounce search text
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchText]);
+
   useEffect(() => {
     const filtered = products.filter((product) =>
-      product?.productName?.toLowerCase().includes(searchText.toLowerCase())
+      product?.productName?.toLowerCase().includes(debouncedSearchText.toLowerCase())
     );
     setFilteredProducts(filtered);
-  }, [searchText, products]);
+  }, [debouncedSearchText, products]);
 
-  const transformProductData = (product) => ({
+  const transformProductData = React.useCallback((product) => ({
     id: product._id,
     name: product.productName,
     price: product.price,
@@ -62,7 +75,7 @@ const ProductDetails = () => {
     stock: product.stock,
     startDate: new Date(product.createdAt).toLocaleDateString(),
     image: product.images || "/placeholder.png",
-  });
+  }), []);
 
   const handleEditClick = (product) => {
     setSelectedProduct(product);

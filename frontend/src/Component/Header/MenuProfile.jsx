@@ -28,7 +28,7 @@ const MenuProfile = ({handleLogout}) => {
       <MenuButton
         as={Button}
         variant="ghost"
-        _hover={{ color: "primary" }}
+        _hover={{ color: "var(--primary)" }}
         className="hidden md:block"
       >
         {user ? (
@@ -37,52 +37,52 @@ const MenuProfile = ({handleLogout}) => {
           <FaUser size={15} />
         )}
       </MenuButton>
-      <MenuList className="glass !bg-black/95 border-white/10 rounded-2xl shadow-2xl p-2 !min-w-[200px]">
+      <MenuList bg="blackAlpha.900" borderColor="whiteAlpha.300" borderRadius="2xl" boxShadow="2xl" p={2} minW="200px">
   {user ? (
     <>
-      <MenuGroup title="Profile" className="!text-primary !text-[10px] !font-black !uppercase !tracking-widest !mb-2">
+      <MenuGroup title="Profile" color="primary" fontSize="10px" fontWeight="black" textTransform="uppercase" letterSpacing="widest" mb={2}>
         <Flex align="center" p={3} gap={3}>
-          <Avatar name={userName} src={userAvatar} size="sm" border="2px solid" borderColor="primary" />
+          <Avatar name={userName} src={userAvatar} size="sm" border="2px solid" borderColor="var(--primary)" />
           <Text fontWeight="bold" color="white">{userName}</Text>
         </Flex>
       </MenuGroup>
-      <MenuDivider className="!border-white/10" />
-      <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-        <Link to="/profile" className="w-full">My Profile</Link>
+      <MenuDivider borderColor="whiteAlpha.300" />
+      <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+        <Link to="/profile" style={{ width: '100%' }}>My Profile</Link>
       </MenuItem>
 
       {/* Only Show Dashboard for Admins */}
       {user.role === "admin" && (
-        <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-          <Link to="/dashboard" className="w-full">Dashboard</Link>
+        <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+          <Link to="/dashboard" style={{ width: '100%' }}>Dashboard</Link>
         </MenuItem>
       )}
-      <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-        <Link to="/order" className="w-full">My Order</Link>
+      <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+        <Link to="/order" style={{ width: '100%' }}>My Order</Link>
       </MenuItem>
-      <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-        <Link to="/settings" className="w-full">Settings</Link>
+      <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+        <Link to="/settings" style={{ width: '100%' }}>Settings</Link>
       </MenuItem>
-      <MenuDivider className="!border-white/10" />
-      <MenuItem onClick={handleLogout} className="!bg-transparent hover:!bg-primary/20 !rounded-xl !text-primary !font-bold transition-all">
+      <MenuDivider borderColor="whiteAlpha.300" />
+      <MenuItem onClick={handleLogout} bg="transparent" _hover={{ bg: "primaryAlpha.200" }} borderRadius="xl" color="primary" fontWeight="bold" transition="all 0.2s">
         Logout
       </MenuItem>
     </>
   ) : (
     <>
-      <MenuGroup title="Authentication" className="!text-primary !text-[10px] !font-black !uppercase !tracking-widest !mb-2">
-        <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-          <Link to="/signin" className="w-full">
+      <MenuGroup title="Authentication" color="primary" fontSize="10px" fontWeight="black" textTransform="uppercase" letterSpacing="widest" mb={2}>
+        <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+          <Link to="/signin" style={{ width: '100%' }}>
             <Flex align="center" gap={3}>
-              <FaSignInAlt className="text-primary" />
+              <FaSignInAlt color="var(--chakra-colors-primary)" />
               <Text fontSize="sm">Login</Text>
             </Flex>
           </Link>
         </MenuItem>
-        <MenuItem className="!bg-transparent hover:!bg-white/5 !rounded-xl !text-gray-300 hover:!text-white transition-all">
-          <Link to="/signup" className="w-full">
+        <MenuItem bg="transparent" _hover={{ bg: "whiteAlpha.200", color: "white" }} borderRadius="xl" color="gray.300" transition="all 0.2s">
+          <Link to="/signup" style={{ width: '100%' }}>
             <Flex align="center" gap={3}>
-              <FaUserPlus className="text-primary" />
+              <FaUserPlus color="var(--chakra-colors-primary)" />
               <Text fontSize="sm">Sign Up</Text>
             </Flex>
           </Link>

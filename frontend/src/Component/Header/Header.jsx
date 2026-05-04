@@ -70,7 +70,7 @@ function Header() {
 
   return (
     <>
-      <Box position="relative" width="100%" height="750px" overflow="hidden" bg="black">
+      <Box position="relative" width="100%" height={{ base: "500px", md: "650px", lg: "750px" }} overflow="hidden" bg="black">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}

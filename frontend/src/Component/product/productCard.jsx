@@ -99,18 +99,20 @@ const ProductCard = memo(({ product }) => {
       >
         <Container
           className="group"
-          bg="white"
-          rounded="lg"
+          bg="gray.900"
+          rounded="xl"
           overflow="hidden"
           mx="-0.5"
           shadow="sm"
-          _hover={{ shadow: "xl", border: "1px ", borderColor: "primary" }}
+          _hover={{ shadow: "2xl", borderColor: "var(--primary)", borderWidth: "1px" }}
           transition="all 0.3s ease-in-out"
           h={{ base: "auto", md: "400px" }}
           w={{ base: "85%", md: "100%" }}
           maxWidth={"500px"}
           display="flex"
           flexDirection="column"
+          border="1px solid"
+          borderColor="whiteAlpha.100"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -156,21 +158,23 @@ const ProductCard = memo(({ product }) => {
 
             {/* Add to Cart Button */}
             {(isHovered || isMobile) && (
-              <Button
+        <Button
                 leftIcon={<ShoppingCart className="w-4 h-4" />}
-                color="gray.950"
+                bg="var(--primary)"
+                color="white"
                 variant="solid"
                 size="md"
-                fontWeight="medium"
+                fontWeight="bold"
                 borderRadius="full"
                 boxShadow="lg"
                 px={6}
                 py={2}
                 position="absolute"
                 bottom="16px"
-                left="30%"
+                left="50%"
+                style={{ transform: "translateX(-50%)" }}
                 onClick={handleAddToCart}
-                _hover={{ bg: "primary", color: "white" }}
+                _hover={{ bg: "var(--primary-hover)", transform: "translateX(-50%) translateY(-2px)" }}
               >
                 Add to Cart
               </Button>
@@ -179,17 +183,17 @@ const ProductCard = memo(({ product }) => {
 
           {/* Product Details */}
           <Box p={4}>
-            <Flex fontSize="sm" color="gray.500" align="center">
+            <Flex fontSize="sm" color="gray.400" align="center">
               <Text>{product.subcategory}</Text>
               <ChevronRight className="w-4 h-4 text-gray-400" />
-              <Text fontWeight="medium">{product.nestedSubcategory}</Text>
+              <Text fontWeight="medium" color="gray.300">{product.nestedSubcategory}</Text>
             </Flex>
 
             <Flex
               justify="space-between"
               align="center"
               fontWeight="semibold"
-              color="gray.900"
+              color="white"
               mt={2}
             >
               <Text fontSize={["sm", "md", "lg"]} isTruncated maxW="250px">
@@ -211,7 +215,7 @@ const ProductCard = memo(({ product }) => {
                     </Text>
                   </>
                 ) : (
-                  <Text color="black" fontSize="xl" fontWeight="bold">
+                  <Text color="white" fontSize="xl" fontWeight="bold">
                     <FormattedPrice amount={Number(product.price)} />
                   </Text>
                 )}
@@ -226,18 +230,18 @@ const ProductCard = memo(({ product }) => {
                     <Text
                       key={sizeObj.size}
                       onClick={() => handleSizeSelect(sizeObj.size)}
-                      bg={selectedSize === sizeObj.size ? "blue.500" : "white"}
+                      bg={selectedSize === sizeObj.size ? "var(--primary)" : "transparent"}
                       color={
-                        selectedSize === sizeObj.size ? "white" : "gray.700"
+                        selectedSize === sizeObj.size ? "white" : "gray.300"
                       }
                       fontSize="sm"
                       px={4}
                       py={1}
                       border="1px solid"
-                      borderColor="gray.300"
+                      borderColor={selectedSize === sizeObj.size ? "var(--primary)" : "whiteAlpha.300"}
                       borderRadius="md"
                       cursor="pointer"
-                      _hover={{ bg: "primary", color: "white" }}
+                      _hover={{ bg: "var(--primary)", color: "white", borderColor: "var(--primary)" }}
                     >
                       {sizeObj.size}{" "}
                       {sizeObj.quantity ? `- x${sizeObj.quantity}` : ""}

@@ -20,20 +20,20 @@ import {
 import img1 from "../../assets/blog1.jpg";
 import img2 from "../../assets/blog2.jpg";
 import UnderlinedText from "../underlinetext/underLineText";
+const BRANDS = [
+  { name: "Vitra", Icon: Shirt },
+  { name: "Boshults", Icon: ShoppingBag },
+  { name: "PackIt", Icon: Package },
+  { name: "Niche", Icon: Crown },
+  { name: "Magisso", Icon: Store },
+  { name: "Louis Poulsen", Icon: Diamond },
+  { name: "Klober", Icon: ShoppingCart },
+  { name: "Joseph Joseph", Icon: Glasses },
+  { name: "HAY", Icon: Sparkles },
+];
+
 const BlogHighlights = () => {
   const MotionHeading = motion(Heading);
-
-  const brands = [
-    { name: "Vitra", Icon: Shirt },
-    { name: "Boshults", Icon: ShoppingBag },
-    { name: "PackIt", Icon: Package },
-    { name: "Niche", Icon: Crown },
-    { name: "Magisso", Icon: Store },
-    { name: "Louis Poulsen", Icon: Diamond },
-    { name: "Klober", Icon: ShoppingCart },
-    { name: "Joseph Joseph", Icon: Glasses },
-    { name: "HAY", Icon: Sparkles },
-  ];
   return (
     <div>
       <MotionHeading
@@ -117,7 +117,7 @@ const BlogHighlights = () => {
               Trusted by world-class brands
             </h3>
             <div className="grid grid-cols-3 md:grid-cols-5 gap-8 items-center">
-              {brands.map(({ name, Icon }) => (
+              {BRANDS.map(({ name, Icon }) => (
                 <div
                   key={name}
                   className="flex flex-col items-center justify-center group cursor-pointer"
@@ -179,7 +179,7 @@ const BlogHighlights = () => {
                   className="text-white space-y-6 lg:pl-8"
                 >
                   <div className="uppercase tracking-wider text-sm font-medium text-gray-300">
-                    They will give birth to the carrier
+                    New arrivals · Premium quality · Limited editions
                   </div>
 
                   <div className="relative py-16 px-8 max-w-5xl mx-auto overflow-hidden">
@@ -193,14 +193,14 @@ const BlogHighlights = () => {
                       Enjoy the best quality and features made by{" "}
                       <span className="relative inline-block px-3 py-1 font-semibold text-3xl group">
                         {/* Decorative blob behind "Squadpark" */}
-                        <span className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg -z-10 transform group-hover:scale-105 transition-transform duration-300"></span>
+                        <span className="absolute inset-0 bg-gradient-to-br from-orange-100/20 to-amber-100/20 rounded-lg -z-10 transform group-hover:scale-105 transition-transform duration-300"></span>
                         {/* Decorative circle */}
-                        <span className="absolute -top-6 -right-4 w-6 h-6 border-2 border-dashed border-blue-300 rounded-full"></span>
+                        <span className="absolute -top-6 -right-4 w-6 h-6 border-2 border-dashed border-orange-300 rounded-full"></span>
                         {/* Decorative dots pattern */}
                         <div className="absolute -bottom-6 -left-2 grid grid-cols-3 gap-1">
-                          <span className="w-1.5 h-1.5 bg-purple-300 rounded-full"></span>
-                          <span className="w-1.5 h-1.5 bg-purple-300 rounded-full"></span>
-                          <span className="w-1.5 h-1.5 bg-purple-300 rounded-full"></span>
+                          <span className="w-1.5 h-1.5 bg-orange-300 rounded-full"></span>
+                          <span className="w-1.5 h-1.5 bg-orange-300 rounded-full"></span>
+                          <span className="w-1.5 h-1.5 bg-orange-300 rounded-full"></span>
                         </div>
                         <UnderlinedText>Squadpark</UnderlinedText>
                       </span>
@@ -214,7 +214,7 @@ const BlogHighlights = () => {
                         duration: 3,
                         ease: "easeInOut",
                       }}
-                      className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-xl -z-10"
+                      className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-orange-200/20 to-amber-200/20 rounded-full blur-xl -z-10"
                     ></motion.div>
 
                     <motion.div
@@ -224,7 +224,7 @@ const BlogHighlights = () => {
                         duration: 4,
                         ease: "easeInOut",
                       }}
-                      className="absolute bottom-5 right-10 w-32 h-16 bg-gradient-to-br from-pink-200/20 to-blue-200/20 rounded-full blur-xl -z-10"
+                      className="absolute bottom-5 right-10 w-32 h-16 bg-gradient-to-br from-orange-200/20 to-amber-200/20 rounded-full blur-xl -z-10"
                     ></motion.div>
                   </div>
 
@@ -234,9 +234,10 @@ const BlogHighlights = () => {
                     transition={{ duration: 0.8, delay: 0.6 }}
                     className="text-gray-300 text-lg lg:text-lg max-w-xl"
                   >
-                    Also, always the clinical level, and my tincidunt will be
-                    followed by a. In who is the teacher from But no one said
-                    the price. Home to drink the quiver.
+                    Discover fashion that moves with you — bold silhouettes, premium
+                    fabrics, and modern cuts designed for the way you live. From
+                    everyday essentials to statement pieces, SquadPark brings you
+                    quality you can feel.
                   </motion.p>
 
                   <motion.div
@@ -289,6 +290,7 @@ const fadeDownVariants = {
 export const CustomerTestimonials = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -298,6 +300,7 @@ export const CustomerTestimonials = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/newsletter", {
         method: "POST",
@@ -315,6 +318,8 @@ export const CustomerTestimonials = () => {
       }
     } catch (error) {
       setMessage("Error connecting to server.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -335,7 +340,8 @@ export const CustomerTestimonials = () => {
       <motion.div
         variants={fadeDownVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
         className="relative min-h-[70vh] flex items-center justify-center px-4"
       >
         <motion.div
@@ -346,7 +352,7 @@ export const CustomerTestimonials = () => {
             variants={fadeDownVariants}
             className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20"
           >
-            <p className="text-red-600 font-medium tracking-wider mb-4">
+            <p className="text-primary font-bold tracking-wider mb-4">
               EXCLUSIVE OFFERS AWAIT
             </p>
 
@@ -377,9 +383,10 @@ export const CustomerTestimonials = () => {
                 />
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-primary hover:bg-black text-white font-bold rounded-lg flex items-center gap-2 transition-all shadow-lg"
+                  disabled={isSubmitting}
+                  className="px-6 py-3 bg-primary hover:bg-black text-white font-bold rounded-lg flex items-center gap-2 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Subscribe
+                  {isSubmitting ? "Subscribing..." : "Subscribe"}
                   <Send size={18} />
                 </button>
               </div>
@@ -401,29 +408,30 @@ export const CustomerTestimonials = () => {
 };
 
 // Features Section with Animation
+const FEATURES_DATA = [
+  {
+    icon: "🚚",
+    title: "Free Shipping",
+    description: "Free Shipping for orders over BDT ৳1000",
+  },
+  {
+    icon: "💳",
+    title: "Money Guarantee",
+    description: "Within 3 days for an exchange.",
+  },
+  {
+    icon: "💼",
+    title: "Flexible Payment",
+    description: "Pay with Multiple Credit Cards & Mobile Banking",
+  },
+  {
+    icon: "🛠️",
+    title: "Online Support",
+    description: "24 hours a day, 7 days a week support",
+  },
+];
+
 export const Features = () => {
-  const features = [
-    {
-      icon: "🚚",
-      title: "Free Shipping",
-      description: "Free Shipping for orders over BDT ৳1000",
-    },
-    {
-      icon: "💳",
-      title: "Money Guarantee",
-      description: "Within 3 days for an exchange.",
-    },
-    {
-      icon: "💼",
-      title: "Flexible Payment",
-      description: "Pay with Multiple Credit Cards & Mobile Banking",
-    },
-    {
-      icon: "🛠️",
-      title: "Online Support",
-      description: "24 hours a day, 7 days a week support",
-    },
-  ];
 
   return (
     <motion.div
@@ -432,7 +440,7 @@ export const Features = () => {
       animate="visible"
       className="flex flex-wrap justify-center items-center gap-8 p-10 mt-9 bg-white"
     >
-      {features.map((feature, index) => (
+      {FEATURES_DATA.map((feature, index) => (
         <motion.div
           key={index}
           variants={fadeDownVariants}

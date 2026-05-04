@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Image, Text, Button, Flex, Badge, HStack, useBreakpointValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import FormattedPrice from '../Cart/FormattedPrice';
+
 const SearchResultCard = ({ product, setSearchText }) => {
   const cardWidth = useBreakpointValue({ base: "full", sm: "320px", md: "350px" });
   const imageHeight = useBreakpointValue({ base: "180px", md: "220px" });
+
+  const discountedPrice = useMemo(() => {
+    if (product?.discount && Number(product.discount) > 0) {
+      return (
+        Number(product.price) *
+        (1 - Number(product.discount) / 100)
+      ).toFixed(2);
+    }
+    return product?.price;
+  }, [product?.price, product?.discount]);
 
   return (
     <Box
@@ -81,12 +92,9 @@ const SearchResultCard = ({ product, setSearchText }) => {
                     </Text>
 
                     {/* Discounted Price */}
-                    <Text color="red.500" fontSize="lg" fontWeight="bold">
+                    <Text color="var(--primary)" fontSize="lg" fontWeight="bold">
                       <FormattedPrice
-                        amount={(
-                          Number(product.price) *
-                          (1 - Number(product.discount) / 100)
-                        ).toFixed(2)}
+                        amount={discountedPrice}
                       />
                     </Text>
                   </>
