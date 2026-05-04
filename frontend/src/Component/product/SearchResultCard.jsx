@@ -1,8 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Box, Image, Text, Button, Flex, Badge, HStack, useBreakpointValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, ImageOff } from "lucide-react";
 import FormattedPrice from '../Cart/FormattedPrice';
+
+// Inline SVG placeholder — zero network requests, never breaks
+const PLACEHOLDER_IMG =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='14' fill='%23555'%3ENo Image%3C/text%3E%3C/svg%3E";
 
 const SearchResultCard = ({ product, setSearchText }) => {
   const cardWidth = useBreakpointValue({ base: "full", sm: "320px", md: "350px" });
@@ -35,12 +39,15 @@ const SearchResultCard = ({ product, setSearchText }) => {
       {/* Product Image */}
       <Box position="relative" height={imageHeight} mb={4}>
         <Image
-          src={product?.images?.[0] || "/api/placeholder/400/400"}
+          src={product?.images?.[0] || PLACEHOLDER_IMG}
           alt={product.productName}
           width="100%"
           height="100%"
           objectFit="cover"
           borderRadius="lg"
+          loading="lazy"
+          onError={(e) => { e.target.src = PLACEHOLDER_IMG; }}
+          fallbackSrc={PLACEHOLDER_IMG}
         />
         <Badge
           position="absolute"

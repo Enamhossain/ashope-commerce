@@ -201,12 +201,13 @@ export const useAuthStore = create(
         try {
           const res = await api.post("/auth/sign-in", { email, password });
           console.log("Login API Response:", res);
-          localStorage.setItem("token", token);
+          const token = res.data.token; // ✅ Extract token from response
+          if (token) localStorage.setItem("token", token);
           set({
             user: res.data.user,
             isAuthenticated: true,
             isLoading: false,
-            token,
+            token: token || null,
           });
 
           return res; // ✅ Return the response so handleLogin can use it

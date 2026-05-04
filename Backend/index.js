@@ -19,7 +19,7 @@ client.connect().then(() => {
 
 app.use(
   cors({
-    origin: ["https://ashop.vercel.app"], // ✅ Allow both ports
+    origin: ["https://ashope-commerce.vercel.app", "http://localhost:5173", "http://localhost:3000"], // ✅ Allow production + local dev
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     credentials: true, // ✅ Allow cookies/auth headers
     

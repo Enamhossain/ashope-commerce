@@ -12,12 +12,12 @@ const Footer = () => {
         {/* Brand Description */}
         <MotionBox mb={8} flex={1} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <Heading size="md" mb={4} fontWeight="black" color="white" letterSpacing="-0.03em">
-              SquadPark
+              Ashop
           </Heading>
           <Text fontSize="sm" mb={4} color="whiteAlpha.600">
             Your go-to store for all your shopping needs. High quality, <br /> fast delivery, and customer satisfaction are our top priorities.
           </Text>
-          <Text fontSize="sm" color="whiteAlpha.400">© 2024 SquadPark. All rights reserved.</Text>
+          <Text fontSize="sm" color="whiteAlpha.400">© 2024 Ashop. All rights reserved.</Text>
         </MotionBox>
 
         {/* Quick Links */}

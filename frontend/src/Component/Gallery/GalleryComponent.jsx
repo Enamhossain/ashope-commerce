@@ -52,7 +52,7 @@ function GalleryComponent() {
   }, [carousel]);
 
   return (
-    <Box py={24} className="bg-black/20">
+    <Box py={24} bg="black">
       <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ function GalleryComponent() {
           transition={{ duration: 0.8 }}
         >
           <Text className="text-primary font-bold uppercase tracking-[0.3em] mb-4 text-sm">Our Curation</Text>
-          <Heading className="text-white text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
+          <Heading color="white" className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 tracking-tight">
             Explore Our <span className="text-gradient">New Collection</span>
           </Heading>
           <Text className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
@@ -92,6 +92,13 @@ function GalleryComponent() {
                     <img
                       src={item.image}
                       alt={item.title}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='1067' viewBox='0 0 800 1067'%3E%3Crect width='800' height='1067' fill='%231a1a1a'/%3E%3C/svg%3E";
+                      }}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />

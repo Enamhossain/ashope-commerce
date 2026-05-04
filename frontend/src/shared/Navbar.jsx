@@ -91,7 +91,7 @@ function Navbar() {
           <Flex gap={6} align="center" className="hidden md:flex">
             <Text className="text-[10px] font-bold text-white hover:text-primary transition-colors uppercase tracking-widest flex items-center gap-2 cursor-default">
               <span className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
-              Support: squadparkclothing@gmail.com
+              Support: ashop@gmail.com
             </Text>
             <Text className="text-[10px] font-bold text-white hover:text-primary transition-colors uppercase tracking-widest cursor-default">+8801818-417242</Text>
           </Flex>
@@ -131,7 +131,7 @@ function Navbar() {
             )}
 
             <Heading as="div" size="lg" className="text-white  tracking-tighter">
-              <Link to="/">SQUADPARK</Link>
+              <Link to="/">ASHOP</Link>
             </Heading>
           </Flex>
 
@@ -274,7 +274,7 @@ function Navbar() {
         <DrawerContent className="!bg-black border-r border-white/10">
           <DrawerHeader className="border-b border-white/5 py-8">
             <Flex align="center" justify="space-between">
-              <Heading size="md" className="text-primary font-black tracking-tighter">SQUADPARK</Heading>
+              <Heading size="md" className="text-primary font-black tracking-tighter">ASHOP</Heading>
               <button onClick={onClose} className="p-2 text-gray-500 hover:text-white transition-colors">
                 <IoClose size={24} />
               </button>
